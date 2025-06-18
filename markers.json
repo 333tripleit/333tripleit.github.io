@@ -1,0 +1,882 @@
+[
+  {
+    "id": "Test2_84550568_134967_136750",
+    "name": "Test2",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "snakeShrine",
+    "coords": [
+      134.9668738428987,
+      136.75
+    ]
+  },
+  {
+    "id": "Ruins_of_Kindred_Spire_10706540_069122_069438",
+    "name": "Ruins of Kindred Spire",
+    "description": "Once a monument to the kinship between tribes.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      69.12166320507762,
+      69.4375
+    ]
+  },
+  {
+    "id": "Obelisk_01975004_071558_064969",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      71.5580962826202,
+      64.96875
+    ]
+  },
+  {
+    "id": "Fox_Island_Portal_24403007_060344_055156",
+    "name": "Fox Island Portal",
+    "description": "Description_PlaceHolder",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      60.344229927683045,
+      55.15625
+    ]
+  },
+  {
+    "id": "Foxy_Home_82921186_058752_052875",
+    "name": "Foxy Home",
+    "description": "There is no place like home.",
+    "category_id": "home",
+    "icon_id": "playerHome",
+    "coords": [
+      58.751568848541645,
+      52.875
+    ]
+  },
+  {
+    "id": "Gardens_of_43556526_048441_048406",
+    "name": "Gardens of Némara",
+    "description": "A place of legend.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      48.44127968786063,
+      48.40625
+    ]
+  },
+  {
+    "id": "Mount_Aurora_94033814_035754_048875",
+    "name": "Mount Aurora ",
+    "description": "Gathering place of the spirit fox.",
+    "category_id": null,
+    "icon_id": "mountainPeak",
+    "coords": [
+      35.754472637497926,
+      48.875
+    ]
+  },
+  {
+    "id": "Palace_of_Peace_74793012_038622_055156",
+    "name": "Palace of Peace",
+    "description": "Where turmoil is calmed and sorrow finds solace.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      38.62210317310131,
+      55.15625
+    ]
+  },
+  {
+    "id": "Obelisk_23942491_039030_041500",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      39.02998105478892,
+      41.5
+    ]
+  },
+  {
+    "id": "Fox_Village_36793276_031442_038531",
+    "name": "Fox Village",
+    "description": "A secluded safe haven for foxes.",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      31.442214619910956,
+      38.53125
+    ]
+  },
+  {
+    "id": "Foundling_Shore_86893610_019098_042156",
+    "name": "Foundling Shore",
+    "description": "Where the last becomes the first.",
+    "category_id": null,
+    "icon_id": "default",
+    "coords": [
+      19.097947657483132,
+      42.15625
+    ]
+  },
+  {
+    "id": "City_of_Foxhaven_26820090_048722_059688",
+    "name": "City of Foxhaven",
+    "description": "The beautiful garden city of the mystic Fox Tribe.",
+    "category_id": null,
+    "icon_id": "anceintTowerV1",
+    "coords": [
+      48.722067721435764,
+      59.6875
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_01629968_047692_061125",
+    "name": "Fox Island Raccoon Grotto",
+    "description": "Sells unpurchased runes from all other grottos",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      47.59188464389319,
+      61.125
+    ]
+  },
+  {
+    "id": "Obelisk_54162550_049842_063750",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      49.84244805718714,
+      63.75
+    ]
+  },
+  {
+    "id": "Foxhaven_Harbor_91306177_046442_066625",
+    "name": "Foxhaven Harbor",
+    "description": "Last farewell of the Northguard.",
+    "category_id": null,
+    "icon_id": "shipyard",
+    "coords": [
+      46.4421486247074,
+      66.625
+    ]
+  },
+  {
+    "id": "Obelisk_57275402_052305_095109",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      52.30476977498249,
+      95.10924860167134
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_74534965_136884_140555",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "extraWisp",
+    "coords": [
+      134.822304,
+      142.987837
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_84505389_135842_130652",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      135.841602824,
+      130.65231266517966
+    ]
+  },
+  {
+    "id": "Obelisk_71115043_210138_016594",
+    "name": "Obelisk",
+    "description": "Sablenest's lone obelisk",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      210.13816327708378,
+      16.59375
+    ]
+  },
+  {
+    "id": "Obelisk_85877704_204684_037563",
+    "name": "Obelisk",
+    "description": "One of Misthaven's obelisks",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      202.6836352434492,
+      37
+    ]
+  },
+  {
+    "id": "Seer's_Crypt_41431982_196871_039750",
+    "name": "Seer's Crypt",
+    "description": "Ancient burial mound of Runa",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      196.87050828901548,
+      39.75
+    ]
+  },
+  {
+    "id": "Misthaven_Portal_64551732_200058_044000",
+    "name": "Misthaven Portal",
+    "description": "Fast travel to Misthaven",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      200.0576893121983,
+      44
+    ]
+  },
+  {
+    "id": "Ruins_of_Nûmhjûk_85210503_191187_037188",
+    "name": "Ruins of Nûmhjûk",
+    "description": "Ancient ruins said to be the birthplace of Thought.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      191.18650603480373,
+      37.1875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_94538524_190034_032594",
+    "name": "Western Misthaven Raccoon Grotto",
+    "description": "Sells: Misty Key, Black fur, Feather Fall rune, Bright Heart rune",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      192.03417175021445,
+      32.59375
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_25288420_190203_045813",
+    "name": "Hermit Lake",
+    "description": "A large peaceful lake blanketed in mist.",
+    "category_id": null,
+    "icon_id": "lake",
+    "coords": [
+      190.1032407270316,
+      45.8125
+    ]
+  },
+  {
+    "id": "Pieth_Homestead_62253183_181286_037563",
+    "name": "Pieth Homestead",
+    "description": "Dwelling of Pieth, the raven shaman. ",
+    "category_id": null,
+    "icon_id": "dwellingWood",
+    "coords": [
+      181.28620660232397,
+      37.5625
+    ]
+  },
+  {
+    "id": "Ancient_Tree_87138532_178099_047688",
+    "name": "Ancient Tree",
+    "description": "Mother of forests",
+    "category_id": null,
+    "icon_id": "tree",
+    "coords": [
+      178.09873959992575,
+      47.6875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_73699039_181086_049813",
+    "name": "Obelisk",
+    "description": "One of Misthaven's obelisks",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      181.08640458793465,
+      49.8125
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_45200436_176276_054656",
+    "name": "Vault of Sorrows",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      176.17631341286426,
+      54.65625
+    ]
+  },
+  {
+    "id": "Misthaven_Monestary_22715357_174787_054344",
+    "name": "Misthaven Monestary",
+    "description": "Once a safe haven for the Raven Tribe.",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      174.78695454796423,
+      54.34375
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_96869094_136523_125499",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "chest",
+    "coords": [
+      143.395728,
+      130.673076
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_86508185_137172_121604",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "skinChest",
+    "coords": [
+      143.166581,
+      137.665232
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_24039734_137324_117218",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "runeChest",
+    "coords": [
+      143.281167,
+      145.001264
+    ]
+  },
+  {
+    "id": "Pieth_7_20230548_056626_055125",
+    "name": "Pieth 7",
+    "description": "A scroll sitting in front of Memory.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      56.62643685813454,
+      55.125
+    ]
+  },
+  {
+    "id": "Taukara_5_37567152_045779_055594",
+    "name": "Taukara 5",
+    "description": "A scroll sitting to the left of the doorway.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      45.77850716190959,
+      55.59375
+    ]
+  },
+  {
+    "id": "Balgair_4_01109350_044968_055125",
+    "name": "Balgair 4",
+    "description": "A scroll sitting before a corrupted locked door. (Intro Accessible)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      44.96844898444101,
+      55.125
+    ]
+  },
+  {
+    "id": "Fennek_5_41245269_036505_057563",
+    "name": "Fennek 5",
+    "description": "A scroll sat beside Fennek's camp.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      36.504813612716276,
+      57.5625
+    ]
+  },
+  {
+    "id": "Taukara_6_47285211_038847_050313",
+    "name": "Taukara 6",
+    "description": "A scroll in a small room near Grimnir's cell. (Intro Accessible) (Underground)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      38.846803740621574,
+      50.3125
+    ]
+  },
+  {
+    "id": "Balgair_1_05708178_032097_046281",
+    "name": "Balgair 1",
+    "description": "A scroll at the foot of the Fox Tribe Shaman. (Intro Accessible)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      32.09652876060676,
+      46.28125
+    ]
+  },
+  {
+    "id": "Words_of_Memory_2_62988255_029814_042063",
+    "name": "Words of Memory 2",
+    "description": "A scroll sat on a stone bench. (Intro Accessible) ",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      29.814453820562363,
+      42.0625
+    ]
+  },
+  {
+    "id": "Words_of_Memory_1_02675687_026503_037125",
+    "name": "Words of Memory 1",
+    "description": "A scroll before your first doorway. (Intro Accessible)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      26.503119735825116,
+      37.125
+    ]
+  },
+  {
+    "id": "Fur_Chest_56893652_032344_036969",
+    "name": "Fur Chest",
+    "description": "Contains: Desert fur\n\nA chest sat up on a rock in fox village. (Intro accessible)",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      32.344328920488365,
+      36.96875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_48737233_036162_047406",
+    "name": "Balgair 2",
+    "description": "A scroll sitting at the feet of a statue fox in the cave. (Intro accessible) (Underground)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      36.162132989237456,
+      47.50625
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_39077665_045902_072063",
+    "name": "Omol 3",
+    "description": "A scroll sat in a lonely shipyard tower",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      45.85,
+      69.59
+    ]
+  },
+  {
+    "id": "Eye_Chest_42080556_037341_065969",
+    "name": "Eye Chest",
+    "description": "Contains: Dark Lavender, Hazel\n\nA chest sitting out in the ocean.",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      37.34145812913387,
+      65.96875
+    ]
+  },
+  {
+    "id": "Hall_of_Guardians_33433641_056332_055188",
+    "name": "Hall of Guardians",
+    "description": "The worthy may pass.",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      56.33165784140642,
+      55.1875
+    ]
+  },
+  {
+    "id": "Chest_05422322_045943_063656",
+    "name": "Chest",
+    "description": "A decorated chest at the very top of the tribe's tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      45.84309455595831,
+      63.65625
+    ]
+  },
+  {
+    "id": "Rune_Chest_68976371_031340_047969",
+    "name": "Rune Chest",
+    "description": "Contains: Lore rune\n(Intro Accessible)",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      31.340325211472887,
+      47.96875
+    ]
+  },
+  {
+    "id": "Chest_03121278_035651_048813",
+    "name": "Chest",
+    "description": "A decorated post-game chest",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      35.651230327387054,
+      48.8125
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_88043444_199715_039719",
+    "name": "Wisp Puzzle",
+    "description": "A bench that releases a wisp when touched",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      199.7150722298593,
+      39.71875
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_32408520_191003_039000",
+    "name": "Wisp Puzzle",
+    "description": "The first puzzle that you unlock a wisp, connected to the ruins of Nûmhjûk",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      191.0026137725979,
+      39
+    ]
+  },
+  {
+    "id": "Pieth_1_59642719_185090_038406",
+    "name": "Pieth 1",
+    "description": "A scroll sat on a stone table near the river",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      184.7069825703917,
+      38.60625
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_72880213_183654_038269",
+    "name": "Wisp Puzzle",
+    "description": "A bench that releases a wisp once touched",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      183.25394712993327,
+      38.46875
+    ]
+  },
+  {
+    "id": "Pieth_5_02065105_180437_036688",
+    "name": "Pieth 5",
+    "description": "A scroll sat on a table beside a Raven Tribe skeleton",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      180.43746296525524,
+      36.6875
+    ]
+  },
+  {
+    "id": "Grimnir_10_86252487_190870_036906",
+    "name": "Grimnir 10",
+    "description": "A scroll beside the entrance to the ruins",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      190.87013431619533,
+      36.90625
+    ]
+  },
+  {
+    "id": "Western_Misthaven_Raccoon_Grotto_51148364_189479_057938",
+    "name": "Eastern Misthaven Raccoon Grotto",
+    "description": "Sells: Misty key, Brown fur, Feather Fall rune, Bright Heart rune",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      189.47851452410083,
+      57.9375
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_62017292_196133_048625",
+    "name": "Wisp Puzzle",
+    "description": "A stone pillar that releases a wisp when stepped on",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      196.03267467598837,
+      48.625
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_20316103_146989_155500",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "skillPoint",
+    "coords": [
+      146.98914448947346,
+      155.5
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_24738717_030289_038688",
+    "name": "Balgair 3",
+    "description": "A scroll sat on a small table under a tree (Intro Accessible)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      31.459363372893876,
+      38.6875
+    ]
+  },
+  {
+    "id": "Skill_Point_87377993_194534_037219",
+    "name": "Skill Point",
+    "description": "A skill point for completing the Ruins of Nûmhjûk.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      194.0341742042782,
+      37.21875
+    ]
+  },
+  {
+    "id": "Chest_22102147_203710_036938",
+    "name": "Chest",
+    "description": "A chest hiding against the cliff rocks. ",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      203.71016658639525,
+      36.9375
+    ]
+  },
+  {
+    "id": "Chest_70354442_191280_047688",
+    "name": "Chest",
+    "description": "A chest sat atop a natural stone pillar.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      191.27955208596583,
+      47.6875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_98966103_187019_049000",
+    "name": "Wisp Puzzle",
+    "description": "A bench that releases a wisp once touched.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      187.01949390849725,
+      49
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_93826731_188075_046813",
+    "name": "Eye Chest",
+    "description": "Contains: White \nA chest underneath hermit lake. (Requires Drowned Rune)",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      187.6,
+      46.8125
+    ]
+  },
+  {
+    "id": "Pieth_2_61690768_186437_045875",
+    "name": "Pieth 2",
+    "description": "A scroll sat in a basket on a small island.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      186.43746296525524,
+      45.875
+    ]
+  },
+  {
+    "id": "Wisp_puzzle_25670859_182410_046406",
+    "name": "Wisp puzzle",
+    "description": "A bench that releases a wisp once touched.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      182.40983170225,
+      46.40625
+    ]
+  },
+  {
+    "id": "Pieth_4_37752293_183441_051813",
+    "name": "Pieth 4",
+    "description": "A scroll sat at the feet of a skeleton in the orchard. ",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      183.44099370864524,
+      51.8125
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_03836245_184942_052188",
+    "name": "Wisp Puzzle",
+    "description": "A wisp that you can reach by climbing a dead tree.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      184.9420166343003,
+      52.1875
+    ]
+  },
+  {
+    "id": "Rune_Chest_82665932_175911_047688",
+    "name": "Rune Chest",
+    "description": "Contains: Rune of Eona\nA chest hidden in a room behind moving basalt.",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      175.91068109475933,
+      47.6875
+    ]
+  },
+  {
+    "id": "Wips_Puzzle_33309159_173284_047688",
+    "name": "Wips Puzzle",
+    "description": "In the hidden basalt rune, there's a wisp that's released when you step on a pillar.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.9837097837896,
+      47.6875
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_56363402_175314_055531",
+    "name": "Wisp Puzzle",
+    "description": "A wisp released with a knocked over door.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.31405784934105,
+      55.53125
+    ]
+  },
+  {
+    "id": "Chest_53551749_176657_052125",
+    "name": "Chest",
+    "description": "A chest sat inside the vault of sorrows. (Underground)",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      176.65733488371558,
+      52.125
+    ]
+  },
+  {
+    "id": "Pieth_3_(Underground)_12703542_178905_050281",
+    "name": "Pieth 3 (Underground)",
+    "description": "A scroll found in a Vault of Sorrows room unlocked with a lever.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      178.90509104679484,
+      50.28125
+    ]
+  },
+  {
+    "id": "Pieth_6_(Underground)_02725858_183280_051250",
+    "name": "Pieth 6 (Underground)",
+    "description": "A scroll sitting in a watery room in the Vault of Sorrows.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      183.27967307717233,
+      51.25
+    ]
+  },
+  {
+    "id": "Eye_Chest_(Underground)_47682094_184623_053875",
+    "name": "Eye Chest (Underground)",
+    "description": "Contains: Maroon, Dark Lavender\n\nA chest sat in a cell room unlocked with a pull string in the Vault of Sorrows.",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      184.62325808916347,
+      53.875
+    ]
+  },
+  {
+    "id": "Skill_Point_(Underground)_92594322_186027_050969",
+    "name": "Skill Point (Underground)",
+    "description": "The skill point awarded for completing the Vault of Sorrows.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      186.0271432610362,
+      50.96875
+    ]
+  },
+  {
+    "id": "Pieth_7_(Underground)_45037267_186431_050438",
+    "name": "Pieth 7 (Underground)",
+    "description": "A scroll on the ground before the feathery stairway.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      186.43069845689115,
+      50.4375
+    ]
+  },
+  {
+    "id": "Chest_75722951_185368_051344",
+    "name": "Chest",
+    "description": "A chest sat at the exit of the Vault of Sorrows.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      185.3680114704811,
+      51.34375
+    ]
+  },
+  {
+    "id": "Rune_Chest_00008904_192211_053156",
+    "name": "Rune Chest",
+    "description": "Contains: Rune of Eona\n\nUnder the Raven Temple bridge, a chest sits on the shore.",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      192.21083753763136,
+      53.15625
+    ]
+  },
+  {
+    "id": "Skill_Point_69184136_196279_048125",
+    "name": "Skill Point",
+    "description": "The skill point awarded for completing the Seer's Crypt.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      196.278793141125,
+      48.125
+    ]
+  }
+]
