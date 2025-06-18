@@ -192,7 +192,7 @@ const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 
 function checkAuth(categories, iconsData) {
-  fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
+  fetch("https://test-sotn2-auth-proxy.onrender.com/auth/me", {
     credentials: "include"
   })
     .then(res => res.json())
@@ -214,7 +214,7 @@ function checkAuth(categories, iconsData) {
         }
       } else {
         loginButton.onclick = () => {
-          window.location.href = "https://sotn2-auth-proxy.onrender.com/auth/login";
+          window.location.href = "https://test-sotn2-auth-proxy.onrender.com/auth/login";
         };
       }
     })
@@ -403,7 +403,7 @@ function initMET(categories, iconsData) {
 	  function startDeployPolling() {
 	    const intervalId = setInterval(async () => {
 		  try {
-		    const res = await fetch('https://sotn2-auth-proxy.onrender.com/api/deploy-status', {
+		    const res = await fetch('https://test-sotn2-auth-proxy.onrender.com/api/deploy-status', {
 			  method: 'GET',
 			  credentials: 'include'
 		    });
@@ -459,7 +459,7 @@ function initMET(categories, iconsData) {
 		  
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
+		  fetch('https://test-sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',
 		    headers: { 'Content-Type': 'application/json' },
