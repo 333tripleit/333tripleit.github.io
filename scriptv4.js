@@ -91,39 +91,51 @@ Promise.all([
   fetch(`icons.json?_=${Date.now()}`).then(r => r.json()),
   fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
 ])
-
 .then(([categories, iconsData, markersData]) => {
   const overlays = {};
+  const groupedOverlays = {
+    "Chests": {},
+    "Objects": {}
+  };
+
+  const chestCategoryIds = ['chest', 'skinchest', 'runechest'];
+  const layers = {};
+  const existingMarkers = new Map();
 
   categories.forEach(cat => {
     const layer = L.layerGroup().addTo(map);
-    layers[cat.id]     = layer;
-    overlays[cat.label] = layer;
+    layers[cat.id] = layer;
+
+    if (chestCategoryIds.includes(cat.id)) {
+      groupedOverlays["Chests"][cat.label] = layer;
+    } else {
+      groupedOverlays["Objects"][cat.label] = layer;
+    }
   });
+
   const defaultLayer = L.layerGroup().addTo(map);
   layers[null] = defaultLayer;
-  overlays['Uncategorized'] = defaultLayer;
-  
+  groupedOverlays["Objects"]['Uncategorized'] = defaultLayer;
+
+  // Предзагрузка иконок
   iconsData.forEach(ic => {
     const img = new Image();
     img.src = ic.url;
   });
-  
+
+  // Подготовка иконок
   const icons = {};
   iconsData.forEach(ic => {
     icons[ic.id] = L.icon({
-      iconUrl:    ic.url,
-      iconSize:   [32, 32],
+      iconUrl: ic.url,
+      iconSize: [32, 32],
       iconAnchor: [16, 32],
-      popupAnchor:[0, -32]
+      popupAnchor: [0, -32]
     });
   });
-  if (icons["default"]) {
-    icons.default = icons["default"];
-  } else {
-    icons.default = Object.values(icons)[0];
-  }
-  
+  icons.default = icons["default"] || Object.values(icons)[0];
+
+  // Копия данных для фильтрации
   originalMarkersData = markersData.map(m => ({
     id: m.id,
     name: m.name,
@@ -132,28 +144,27 @@ Promise.all([
     icon_id: m.icon_id,
     coords: [m.coords[0], m.coords[1]]
   }));
-  
+
+  // Добавление маркеров
   markersData.forEach(m => {
-    const {id, name, description, coords, category_id, icon_id} = m;
-	
-    const icon  = icons[icon_id] || icons.default;
-    const layer = layers[category_id];
-	
+    const { id, name, description, coords, category_id, icon_id } = m;
+    const icon = icons[icon_id] || icons.default;
+    const layer = layers[category_id] || defaultLayer;
+
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
-	  
-	marker.options.id = id;
-	marker.options.name = name;
-	marker.options.description = description;
-	marker.options.coords = coords;
-	marker.options.category_id = category_id;
-	marker.options.icon_id = icon_id;
-	
-	layer.addLayer(marker);
-	existingMarkers.set(marker.options.id, marker);
+
+    marker.options = {
+      id, name, description, coords, category_id, icon_id
+    };
+
+    layer.addLayer(marker);
+    existingMarkers.set(id, marker);
   });
-  L.control
-    .layers(null, overlays, {collapsed: true}).addTo(map);
+
+  // Вложенные фильтры
+  L.control.groupedLayers(null, groupedOverlays, { collapsed: false }).addTo(map);
+
   checkAuth(categories, iconsData);
 })
 .catch(error => console.error("JSON reading error:", error));
