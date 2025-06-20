@@ -28,7 +28,7 @@ const allowedEditors = [
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: 2,
-  maxZoom: 7,
+  maxZoom: 5,
   zoomSnap: 0.025,
   zoomDelta: 0.025,
   zoom: 2,
