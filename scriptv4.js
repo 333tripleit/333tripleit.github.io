@@ -15,6 +15,11 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
+//
+let clusterMarkers = [];  // Список сгруппированных маркеров
+let BLOCK_SIZE = 32;
+//
+
 
 const allowedEditors = [
 "OoonyxxX", 
@@ -53,6 +58,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 //Адаптивный зумм для карты
 //START
 map.on('zoomend', function () {
+  console.log("Zoom end");
   const z0 = map.getZoom();
   const z = z0 - 2;
   const borderShift = Math.pow(2, z);
@@ -60,6 +66,18 @@ map.on('zoomend', function () {
   const mapTileHTE = ((window.innerHeight / 9) * screen_frame_mult) / borderShift;
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHTE + mapTile, mapTileWRE + mapTile]];
   map.setMaxBounds(shiftedBounds);
+  // Логика кластеров
+  if (z0 < 5) {
+	const scaleFactor = Math.pow(2, z0);
+	console.log("Scale")
+	console.log(scaleFactor)
+	BLOCK_SIZE = 128 / scaleFactor;    // Размер ячейки
+	console.log("BLOCK_SIZE")
+	console.log(BLOCK_SIZE)
+    showClusters();     // Показать кластерные маркеры
+  } else {
+    removeClusters();   // Вернуть обычные маркеры
+  }
 });
 //END
 //Адаптивный зумм для карты
@@ -154,11 +172,15 @@ Promise.all([
   });
   L.control
     .layers(null, overlays, {collapsed: true}).addTo(map);
+  showClusters()
   checkAuth(categories, iconsData);
 })
 .catch(error => console.error("JSON reading error:", error));
 //END
 //Слои меток + Фильтры
+
+
+
 
 //Переменные блока MET
 //START
@@ -784,3 +806,76 @@ function initMET(categories, iconsData) {
 }
 //END
 //Блок MET
+
+function showClusters() {
+  console.log("Создание кластеров...");
+
+  removeClusters();
+
+  const groups = {};
+
+  existingMarkers.forEach(marker => {
+    const latlng = marker.getLatLng();
+    const z0 = map.getZoom();
+    const point = map.project(latlng, z0);
+
+    if (!point || isNaN(point.x) || isNaN(point.y)) {
+      console.warn("Некорректные координаты у маркера:", marker.options.id);
+      return;
+    }
+
+    const cellX = Math.floor(point.x / BLOCK_SIZE);
+    const cellY = Math.floor(point.y / BLOCK_SIZE);
+    const key = `${cellX}_${cellY}`;
+
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(marker); // здесь сохраняем сам маркер, а не только координаты
+
+    // Пока не скрываем маркер — решим это ниже
+  });
+
+  for (const key in groups) {
+    const group = groups[key];
+
+    if (group.length === 1) {
+      // Только один маркер в кластере — показываем его
+      const marker = group[0];
+      marker.setOpacity(1);
+      marker.addTo(map);
+    } else {
+      // Несколько маркеров — скрываем все и создаём кластер
+      group.forEach(m => {
+        m.setOpacity(0);
+        map.removeLayer(m);
+      });
+
+      const avgLat = group.reduce((sum, m) => sum + m.getLatLng().lat, 0) / group.length;
+      const avgLng = group.reduce((sum, m) => sum + m.getLatLng().lng, 0) / group.length;
+
+      const clusterMarker = L.marker([avgLat, avgLng], {
+        icon: L.divIcon({
+          className: 'cluster-icon',
+          html: `<div>${group.length}</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        })
+      }).addTo(map);
+
+      clusterMarkers.push(clusterMarker);
+    }
+  }
+
+  console.log(`Кластеров создано: ${clusterMarkers.length}`);
+}
+
+function removeClusters() {
+  clusterMarkers.forEach(m => map.removeLayer(m));
+  clusterMarkers = [];
+  existingMarkers.forEach(marker => {
+      marker.setOpacity(1);
+      if (!map.hasLayer(marker)) {
+        marker.addTo(map);   // Показываем обычные маркеры
+      }
+    });
+
+}
