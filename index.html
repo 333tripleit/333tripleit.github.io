@@ -5,8 +5,6 @@
   <title>SOTN2 Interactive Map</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="cursor.css" />
 </head>
@@ -61,22 +59,6 @@
 		<button type="button" id="delete-btn" class="btn-delete">Delete</button>
 	  </form>
   </template>
-  <div id="group-icon" class="group-base">
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="custom-cursor-svg">
-	  <defs>
-		<filter id="layerBlur01" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="0.1"/>
-		</filter>
-		<filter id="layerBlur005" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="0.05"/>
-		</filter>
-	  </defs>
-	  <g id="Group" class="GroupIcon">
-	    <circle cx="9" cy="9" r="8" fill="#6B6B6B" stroke="#050505" stroke-opacity="1" stroke-width="1" filter="url(#layerBlur01)"/>
-		<text id="digit" filter="url(#layerBlur005)" x="5" y="14.5" font-size="16" fill="#e5e5e5" style="user-select: none;">8</text>
-	  </g>
-	</svg>
-  </div>
   <div id="custom-cursor" class="cursor-base">
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" class="custom-cursor-svg">
 	  <defs>
@@ -112,16 +94,7 @@
 		<filter id="layerBlur06" x="-400%" y="-400%" width="900%" height="900%">
 		  <feGaussianBlur stdDeviation="0.6"/>
 		</filter>
-		<filter id="layerBlur01" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="0.1"/>
-		</filter>
-		<filter id="layerBlur005" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="0.05"/>
-		</filter>
 	  </defs>
-	  <g id="Group" class="GroupIcon">
-	  
-	  </g>
 	  <g id="Cursor" class="CursorStack">
 		  <g id="base" class="baseStack" style="mix-blend-mode: color;"> <!-- style="mix-blend-mode: none;  -->
 			<g id="scaleSup" class="baseScaleAnchor">
@@ -246,7 +219,6 @@
   </div>
 </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
   <script src="scriptv4.js"></script>
   <script src="cursor.js"></script>
 </body>

@@ -16,6 +16,8 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 
+
+
 const allowedEditors = [
 "OoonyxxX", 
 "333tripleit",
@@ -30,7 +32,7 @@ const map = L.map('map', {
   minZoom: 2,
   maxZoom: 5,
   zoomSnap: 0.025,
-  zoomDelta: 0.025,
+  zoomDelta: 0.5,
   zoom: 2,
   zoomControl: true,
   maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
@@ -50,9 +52,15 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 //Тайловая карта
 
 
+//
+let clusterMarkers = [];  // Список сгруппированных маркеров
+let BLOCK_SIZE = 32;
+//
+
 //Адаптивный зумм для карты
 //START
 map.on('zoomend', function () {
+  console.log("Zoom end");
   const z0 = map.getZoom();
   const z = z0 - 2;
   const borderShift = Math.pow(2, z);
@@ -60,14 +68,161 @@ map.on('zoomend', function () {
   const mapTileHTE = ((window.innerHeight / 9) * screen_frame_mult) / borderShift;
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHTE + mapTile, mapTileWRE + mapTile]];
   map.setMaxBounds(shiftedBounds);
+  // Логика кластеров
+  if (z0 < 5) {
+	const scaleFactor = Math.pow(2, z0);
+	console.log("Scale")
+	console.log(scaleFactor)
+	BLOCK_SIZE = 128 / scaleFactor;    // Размер ячейки 32
+	console.log("BLOCK_SIZE")
+	console.log(BLOCK_SIZE)
+    showClusters();     // Показать кластерные маркеры
+  } else {
+    removeClusters();   // Вернуть обычные маркеры
+  }
 });
 //END
 //Адаптивный зумм для карты
 
+function showClusters() {
+  removeClusters();
+  const groups = {};
+
+  existingMarkers.forEach(marker => {
+	const point = {
+	  x: marker.options.coords[0],
+	  y: marker.options.coords[1]
+	};
+    const cellX = Math.floor(point.x / BLOCK_SIZE);
+    const cellY = Math.floor(point.y / BLOCK_SIZE);
+    const key = `${cellX}_${cellY}`;
+
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(marker);
+  });
+  
+  calculateAnchors(groups, BLOCK_SIZE); // Находим среднюю координату внутри каждой группы по "key".(Вычитаем половину квадрата BLOCK_SIZE, для получения стартовой точки отсчета группирования)
+  calculateClouds(anchors); //Оптимизационный просчет, ограничивает область видимости для каждого key. Нужен для того, что бы последующие итерации точности проходили только по ближайшим тайлам, а не по всей сетке.
+  computeDirtyGroups(anchors, cloud, BLOCK_SIZE); //Это почти как groups, но грязные, по сути некоторые маркеры пошли блядовать, один маркер может быть сразу в двух key.
+  
+
+  for (const key in groups) {
+    const group = groups[key];
+
+    if (group.length === 1) {
+      // Только один маркер в кластере — показываем его
+      const marker = group[0];
+      marker.setOpacity(1);
+      marker.addTo(map);
+    } else {
+      // Несколько маркеров — скрываем все и создаём кластер
+      group.forEach(m => {
+        m.setOpacity(0);
+        map.removeLayer(m);
+      });
+
+      const avgLat = group.reduce((sum, m) => sum + m.getLatLng().lat, 0) / group.length;
+      const avgLng = group.reduce((sum, m) => sum + m.getLatLng().lng, 0) / group.length;
+
+      const clusterMarker = L.marker([avgLat, avgLng], {
+        icon: L.divIcon({
+          className: 'cluster-icon',
+          html: `<div>${group.length}</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        })
+      }).addTo(map);
+
+      clusterMarkers.push(clusterMarker);
+    }
+  }
+
+  console.log(`Кластеров создано: ${clusterMarkers.length}`);
+}
+
+function computeDirtyGroups(object, object, BLOCK_SIZE) {
+  const dirtygroups = {};
+
+  Object.keys(object).forEach(key => {
+    const center = object[key];
+    const startX = center.x;
+    const endX = center.x + BLOCK_SIZE;
+    const startY = center.y;
+    const endY = center.y + BLOCK_SIZE;
+
+    const markers = object[key] || [];
+
+    // Фильтрация маркеров внутри прямоугольной области
+    const filtered = markers.filter(marker => {
+      const [x, y] = marker.options.coords;
+      return x >= startX && x <= endX && y >= startY && y <= endY;
+    });
+
+    dirtygroups[key] = filtered;
+  });
+
+  return dirtygroups;
+}
+
+function calculateClouds(object) {
+  const cloud = {};
+
+  Object.keys(object).forEach(key => {
+    const [cellX, cellY] = key.split('_').map(Number);
+    const combinedMarkers = [];
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const neighborKey = `${cellX + dx}_${cellY + dy}`;
+        if (object[neighborKey]) {
+          combinedMarkers.push(...object[neighborKey]);
+        }
+      }
+    }
+    cloud[key] = combinedMarkers;
+  });
+  
+  return cloud;
+}
+
+function calculateAnchors(object, BLOCK_SIZE) {
+  const anchors = {};
+
+  Object.entries(object).forEach(([key, markers]) => {
+    if (markers.length === 0) return;
+
+    let sumX = 0;
+    let sumY = 0;
+
+    markers.forEach(marker => {
+      const [x, y] = marker.options.coords;
+      sumX += x;
+      sumY += y;
+    });
+    const avgX = sumX / markers.length;
+    const avgY = sumY / markers.length;
+    const anchorX = avgX - BLOCK_SIZE / 2;
+    const anchorY = avgY - BLOCK_SIZE / 2;
+    anchors[key] = { x: anchorX, y: anchorY };
+  });
+
+  return anchors;
+}
+
+function removeClusters() {
+  clusterMarkers.forEach(m => map.removeLayer(m));
+  clusterMarkers = [];
+  existingMarkers.forEach(marker => {
+      marker.setOpacity(1);
+      if (!map.hasLayer(marker)) {
+        marker.addTo(map);   // Показываем обычные маркеры
+      }
+    });
+}
 
 
 
-//Переменные для редактирования существующих меток
+//Переменные для редактирования существующих маркеров
 //START
 //const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
@@ -154,11 +309,15 @@ Promise.all([
   });
   L.control
     .layers(null, overlays, {collapsed: true}).addTo(map);
+  showClusters()
   checkAuth(categories, iconsData);
 })
 .catch(error => console.error("JSON reading error:", error));
 //END
 //Слои меток + Фильтры
+
+
+
 
 //Переменные блока MET
 //START
@@ -784,3 +943,4 @@ function initMET(categories, iconsData) {
 }
 //END
 //Блок MET
+
