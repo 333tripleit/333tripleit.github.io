@@ -88,7 +88,7 @@ let originalMarkersData = [];
 
 Promise.all([
   fetch(`categories.json?_=${Date.now()}`).then(r => r.json()),
-  fetch(`icons.json?_=${Date.now()}`).then(r => r.json()),
+  fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
   fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
 ])
 
@@ -110,14 +110,20 @@ Promise.all([
   });
   
   const icons = {};
-  iconsData.forEach(ic => {
-    icons[ic.id] = L.icon({
-      iconUrl:    ic.url,
-      iconSize:   [32, 32],
+  await Promise.all(iconsData.map(async ic => {
+    // 1) получаем текст SVG
+    let svgText = await fetch(ic.url).then(r => r.text());
+    // 2) оборачиваем в контейнер (можно сразу вставлять <svg> как есть)
+    const html = `<div class="svg-icon" data-icon-id="${ic.id}">${svgText}</div>`;
+    // 3) создаём divIcon
+    icons[ic.id] = L.divIcon({
+      html,
+      className: '',         // убираем фоновые стили Leaflet
+      iconSize: [32, 32],
       iconAnchor: [16, 32],
-      popupAnchor:[0, -32]
+      popupAnchor: [0, -32]
     });
-  });
+  }));
   if (icons["default"]) {
     icons.default = icons["default"];
   } else {

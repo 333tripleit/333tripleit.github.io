@@ -106,3 +106,12 @@ html.custom-cursor-on {
 
 /*#e5e5e5*/
 /*background: #061d25e5*/
+
+.svg-icon {
+  width: 32px;
+  height: 32px;
+}
+.svg-icon svg {
+  width: 100%;
+  height: 100%;
+}
