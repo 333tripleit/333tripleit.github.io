@@ -86,14 +86,16 @@ let originalMarkersData = [];
 //  fetch("markers.json").then(res => res.json())
 //])
 
-Promise.all([
-  fetch(`categories.json?_=${Date.now()}`).then(r => r.json()),
-  fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
-  fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
-])
+let categories, iconsData, markersData, icons, overlays;
 
-.then(([categories, iconsData, markersData]) => {
-  const overlays = {};
+(async () => {
+  [categories, iconsData, markersData] = await Promise.all([
+    fetch(`categories.json?_=${Date.now()}`).then(r => r.json()),
+    fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
+    fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
+  ]);
+
+  overlays = {};
 
   categories.forEach(cat => {
     const layer = L.layerGroup().addTo(map);
@@ -103,33 +105,26 @@ Promise.all([
   const defaultLayer = L.layerGroup().addTo(map);
   layers[null] = defaultLayer;
   overlays['Uncategorized'] = defaultLayer;
-  
+
   iconsData.forEach(ic => {
     const img = new Image();
     img.src = ic.url;
   });
-  
-  const icons = {};
+
+  icons = {};
   await Promise.all(iconsData.map(async ic => {
-    // 1) получаем текст SVG
-    let svgText = await fetch(ic.url).then(r => r.text());
-    // 2) оборачиваем в контейнер (можно сразу вставлять <svg> как есть)
+    const svgText = await fetch(ic.url).then(r => r.text());
     const html = `<div class="svg-icon" data-icon-id="${ic.id}">${svgText}</div>`;
-    // 3) создаём divIcon
     icons[ic.id] = L.divIcon({
       html,
-      className: '',         // убираем фоновые стили Leaflet
-      iconSize: [32, 32],
+      className: '',
+      iconSize:   [32, 32],
       iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
+      popupAnchor:[0, -32]
     });
   }));
-  if (icons["default"]) {
-    icons.default = icons["default"];
-  } else {
-    icons.default = Object.values(icons)[0];
-  }
-  
+  icons.default = icons.default || Object.values(icons)[0];
+
   originalMarkersData = markersData.map(m => ({
     id: m.id,
     name: m.name,
@@ -138,31 +133,28 @@ Promise.all([
     icon_id: m.icon_id,
     coords: [m.coords[0], m.coords[1]]
   }));
-  
+
   markersData.forEach(m => {
     const {id, name, description, coords, category_id, icon_id} = m;
-	
     const icon  = icons[icon_id] || icons.default;
     const layer = layers[category_id];
-	
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
-	  
-	marker.options.id = id;
-	marker.options.name = name;
-	marker.options.description = description;
-	marker.options.coords = coords;
-	marker.options.category_id = category_id;
-	marker.options.icon_id = icon_id;
-	
-	layer.addLayer(marker);
-	existingMarkers.set(marker.options.id, marker);
+    marker.options.id = id;
+    marker.options.name = name;
+    marker.options.description = description;
+    marker.options.coords = coords;
+    marker.options.category_id = category_id;
+    marker.options.icon_id = icon_id;
+    layer.addLayer(marker);
+    existingMarkers.set(marker.options.id, marker);
   });
-  L.control
-    .layers(null, overlays, {collapsed: true}).addTo(map);
+
+  L.control.layers(null, overlays, { collapsed: true }).addTo(map);
+
   checkAuth(categories, iconsData);
-})
-.catch(error => console.error("JSON reading error:", error));
+
+})().catch(error => console.error("JSON reading error:", error));
 //END
 //Слои меток + Фильтры
 
