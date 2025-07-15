@@ -155,6 +155,8 @@ let categories, iconsData, markersData, icons, overlays;
   checkAuth(categories, iconsData);
 
 })().catch(error => console.error("JSON reading error:", error));
+
+
 //END
 //Слои меток + Фильтры
 
@@ -259,7 +261,7 @@ function initMET(categories, iconsData) {
 	//START
 	let exitchecker = false;
 	let popapsaved = false;
-    const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
+    //const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
     let addingMarker = false;
 	let editPopupOpen = false;
@@ -267,37 +269,25 @@ function initMET(categories, iconsData) {
 	//END
 	//Переменные внутри блока MET
 	
-	function discardChanges(iconsData) {
-	  // 1) убираем все текущие метки
+	function discardChanges() {
 	  editPopup.remove();
+	  
 	  existingMarkers.forEach(marker => {
 		const cat = marker.options.category_id;
 		layers[cat].removeLayer(marker);
 	  });
 	  existingMarkers.clear();
 	  
-	  const icons = {};
-	  iconsData.forEach(ic => {
-		icons[ic.id] = L.icon({
-		  iconUrl:    ic.url,
-		  iconSize:   [32, 32],
-		  iconAnchor: [16, 32],
-		  popupAnchor:[0, -32]
-		});
-	  });
-	  // Если в JSON есть default–иконка, назначим её как fallback
 	  if (icons["default"]) {
 		icons.default = icons["default"];
 	  } else {
-		// можно вписать свою картинку или оставить первую
 		icons.default = Object.values(icons)[0];
 	  }
-	  // 2) пересоздаём их «как было»
+
 	  originalMarkersData.forEach(m => {
 		const icon = icons[m.icon_id] || icons.default;
 		const layer = layers[m.category_id];
 		const marker = L.marker(m.coords, { icon });
-		// записываем обратно все опции, чтобы bindPopup / onMarkerClick дальше работали
 		marker.options.id           = m.id;
 		marker.options.name         = m.name;
 		marker.options.description  = m.description;
@@ -309,7 +299,6 @@ function initMET(categories, iconsData) {
 		existingMarkers.set(m.id, marker);
 	  });
 
-	  // чистим «журнал» изменений
 	  diff.added   = [];
 	  diff.updated = [];
 	  diff.deleted = [];
@@ -447,7 +436,7 @@ function initMET(categories, iconsData) {
 		  btnSave.style.display = 'none';
 		  addingMarker = false;
 		  setAddMode();
-		  discardChanges(iconsData);
+		  discardChanges();
 	    } else {
 		  exitText.innerHTML = '';
 		  exitButtons.classList.add('exit-hidden');
@@ -482,15 +471,8 @@ function initMET(categories, iconsData) {
 	//Функция добаления маркера
     function onMapClick(e) {
       if (!addingMarker) return;
-	  const ic = iconsById.default || iconsById["default"];
-      const marker = L.marker(e.latlng, {
-		icon: L.icon({
-		  iconUrl: ic.url,
-		  iconSize: [32, 32],
-		  iconAnchor: [16, 32],
-		  popupAnchor: [0, -32]
-		})
-	  }).addTo(map);
+	  const newIcon = icons.default || icons["default"];
+      const marker = L.marker(e.latlng, {icon: newIcon}).addTo(map);
       openEditPopup(marker, true);
 	  addingMarker = !addingMarker;
 	  existingMarkers.forEach(m => {
@@ -590,13 +572,8 @@ function initMET(categories, iconsData) {
 		if (!exitchecker && popapsaved) {
 		  exitchecker = false;
 		  marker.setLatLng(marker.options.coords);
-		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
-          marker.setIcon(L.icon({
-            iconUrl: ic.url,
-            iconSize: [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor: [0, -32]
-          }));
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
 		  updateSaveState();
 		};
 	  });
@@ -608,13 +585,8 @@ function initMET(categories, iconsData) {
 	  
 	  //Динамическое изменение иконки
       iconSel.addEventListener('change', e => {
-        const ic = iconsById[e.target.value] || iconsById.default;
-        marker.setIcon(L.icon({
-          iconUrl: ic.url,
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
-        }));
+        const ic = icons[e.target.value] || icons.default;
+        marker.setIcon(ic);
       });
 	  
 	  // Функция активации перемещения иконки
@@ -711,13 +683,8 @@ function initMET(categories, iconsData) {
         marker.options.icon_id = icon_id;
         marker.options.coords = [lat, lng];
         marker.setLatLng([lat, lng]);
-        const ic = iconsById[icon_id] || iconsById.default;
-        marker.setIcon(L.icon({
-          iconUrl: ic.url,
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
-        }));
+        const ic = icons[icon_id] || icons.default;
+        marker.setIcon(ic);
 		popapsaved = true;
         editPopup.remove();
         updateSaveState();
@@ -732,13 +699,8 @@ function initMET(categories, iconsData) {
           diff.added = diff.added.filter(o => o.id !== marker.options.id);
         } else {
 		  marker.setLatLng(marker.options.coords);
-		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
-          marker.setIcon(L.icon({
-            iconUrl: ic.url,
-            iconSize: [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor: [0, -32]
-          }));
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
         }
         editPopup.remove();
         updateSaveState();
