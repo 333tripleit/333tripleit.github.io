@@ -155,7 +155,7 @@ let categories, iconsData, markersData, icons, overlays;
     layer.addLayer(marker);
 	const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
-	if (path) path.style.color = color;
+	if (path) path.style.color = #ff0000;
     existingMarkers.set(marker.options.id, marker);
   });
 
