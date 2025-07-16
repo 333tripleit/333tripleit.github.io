@@ -131,11 +131,14 @@ let categories, iconsData, markersData, icons, overlays;
     description: m.description,
     category_id: m.category_id,
     icon_id: m.icon_id,
-    coords: [m.coords[0], m.coords[1]]
+    coords: [m.coords[0], m.coords[1]],
+	region: m.reg_id,
+	level: m.height,
+	custom_color: [m.color.R ,m.color.G ,m.color.B]
   }));
 
   markersData.forEach(m => {
-    const {id, name, description, coords, category_id, icon_id} = m;
+    const {id, name, description, category_id, icon_id, coords, reg_id, height, color} = m;
     const icon  = icons[icon_id] || icons.default;
     const layer = layers[category_id];
     const marker = L.marker(coords, { icon })
@@ -143,10 +146,16 @@ let categories, iconsData, markersData, icons, overlays;
     marker.options.id = id;
     marker.options.name = name;
     marker.options.description = description;
-    marker.options.coords = coords;
-    marker.options.category_id = category_id;
+	marker.options.category_id = category_id;
     marker.options.icon_id = icon_id;
+    marker.options.coords = coords;
+	marker.options.region = reg_id;
+	marker.options.level = height;
+	marker.options.custom_color = color;
     layer.addLayer(marker);
+	const el = marker.getElement();
+	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+	if (path) path.style.color = color;
     existingMarkers.set(marker.options.id, marker);
   });
 
