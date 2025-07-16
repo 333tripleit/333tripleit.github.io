@@ -151,11 +151,14 @@ let categories, iconsData, markersData, icons, overlays;
     marker.options.coords = coords;
 	marker.options.region = reg_id;
 	marker.options.level = height;
-	marker.options.custom_color = color;
+
     layer.addLayer(marker);
 	const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
-	if (path) path.style.color = '#ff0000';
+	const { R, G, B } = color;
+	const cssColor = `rgb(${R}, ${G}, ${B})`;
+	marker.options.custom_color = cssColor;
+	if (path) path.style.color = cssColor;
     existingMarkers.set(marker.options.id, marker);
   });
 
