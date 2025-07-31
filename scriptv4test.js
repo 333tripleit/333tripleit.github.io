@@ -262,11 +262,10 @@ function paintingRegions() {
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = marker.options.custom_rgbcolor;
 	
-	if ([R, G, B].every(v => v === 255)) {
-	  path.style.color = cssHexColor;
-	} else {
-	  path.style.color = marker.options.custom_csscolor;
-	}
+	const isWhite = [R, G, B].every(v => v === 255);
+    path.style.fill =
+      (coloredRegionsEnabled && isWhite && cssHexColor)
+      || marker.options.custom_csscolor;
   });
 }
 
