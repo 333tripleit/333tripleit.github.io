@@ -135,12 +135,11 @@ let iconsData, markersData, icons, overlays;
 
 	marker.addTo(map)
 	const el = marker.getElement();
-	console.log('Перед querySelector, переменная =', el);
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
-	console.log('После querySelector, переменная =', path);
 	const { R, G, B } = color;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
-	marker.options.custom_color = cssColor;
+	marker.options.custom_rgbcolor = color;
+	marker.options.custom_csscolor = cssColor;
 	if (path) path.style.color = cssColor;
     existingMarkers.set(marker.options.id, marker);
   });
@@ -224,17 +223,64 @@ function checkAuth(iconsData) {
 //END
 //Блок авторизации
 
+//Блок Options
+//START
+
+const reg_color = {
+  fox_island:   '#fae0bc',
+  misthaven:    '#ddc7fa',
+  mosswood:     '#bffac6',
+  stormvale:    '#f8fbcd',
+  frigid_peaks: '#bce3fa',
+  ashlands:     '#fbcaca',
+  ocean:        '#d1defb',
+};
+
+const coloredRegionsToggle = document.getElementById('toggle-regions');
+const heightDisplayToggle = document.getElementById('toggle-height');
+const coloredMarkersToggle = document.getElementById('toggle-color');
+const customColorsToggle = document.getElementById('toggle-customcolor');
+
+let coloredRegionsEnabled = false;
+let heightDisplayEnabled = false;
+let coloredMarkersEnabled = true;
+let customColorsEnabled = false;
+
+coloredRegionsToggle.addEventListener('change', () => {
+  coloredRegionsEnabled = !coloredRegionsEnabled;
+  paintingRegions();
+  
+  customCursor.style.display = customCursorEnabled ? 'block' : 'none';
+  customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
+  document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
+});
+
+function paintingRegions() {
+  existingMarkers.forEach(m => {
+    const cssHexColor = regColor[marker.options.region] || '#fff';
+    const el = marker.getElement();
+	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+	const { R, G, B } = marker.options.custom_rgbcolor;
+	
+	if ([R, G, B].every(v => v === 255)) {
+	  path.style.color = cssHexColor;
+	} else {
+	  path.style.color = marker.options.custom_csscolor;
+	}
+  });
+}
+
+//END
+//Блок Options
+
 const tpl = document.getElementById('marker-form-template');
 
 function genId(title, lat, lng) {
-  // 1) Title: пробелы → нижнее подчёркивание, оборвать лишние пробелы
   const safeTitle = title.trim().replace(/\s+/g, '_');
 
-  // 2) Рандом 8 цифр
   const rand = String(Math.floor(Math.random() * 1e8))
 	.padStart(8, '0');
 
-  // 3) Координаты ×1000, 6-значным числом, с ведущими нулями
   const latPart = String(Math.round(lat * 1000)).padStart(6, '0');
   const lngPart = String(Math.round(lng * 1000)).padStart(6, '0');
 
