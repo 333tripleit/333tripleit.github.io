@@ -133,7 +133,7 @@ let iconsData, markersData, icons, overlays;
 	marker.options.region = reg_id;
 	marker.options.level = height;
 
-	existingMarkers.set(marker.options.id, marker);
+	marker.addTo(map)
 	const el = marker.getElement();
 	console.log('Перед querySelector, переменная =', el);
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
@@ -142,7 +142,7 @@ let iconsData, markersData, icons, overlays;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_color = cssColor;
 	if (path) path.style.color = cssColor;
-    
+    existingMarkers.set(marker.options.id, marker);
   });
 
   checkAuth(iconsData);
