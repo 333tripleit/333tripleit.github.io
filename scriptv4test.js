@@ -164,11 +164,11 @@ const timerProgress = document.getElementById('timerProgressCircle');
 const blueTimer = document.getElementById('TimerBlue');
 const redTimer = document.getElementById('TimerRed');
 
-metControls.style.display = 'none';
-btnActivate.style.display = 'none';
-btnExit.style.display = 'none';
-btnAdd.style.display = 'none';
-btnSave.style.display = 'none';
+//metControls.style.display = 'none';
+//btnActivate.style.display = 'none';
+//btnExit.style.display = 'none';
+//btnAdd.style.display = 'none';
+//btnSave.style.display = 'none';
 
 btnActivate.disabled = true;
 btnExit.disabled     = true;
