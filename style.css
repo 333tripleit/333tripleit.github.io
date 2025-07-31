@@ -493,6 +493,7 @@ body::-webkit-scrollbar {
     width: 22em;
     position: absolute;
     z-index: 1;
+	user-select: none;
 }
 
 .header-hided-container {
@@ -502,6 +503,7 @@ body::-webkit-scrollbar {
     position: absolute;
     z-index: 0;
     justify-content: space-between;
+	user-select: none;
 }
 
 .header-hopt-right-container {
@@ -957,6 +959,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
+	user-select: none;
 }
 
 .met-button-container {
@@ -974,6 +977,7 @@ body::-webkit-scrollbar {
     padding-right: 20px;
     padding-left: 20px;
     margin-top: -4px;
+	pointer-events: none;
 }
 
 .btn-met {
@@ -990,7 +994,7 @@ body::-webkit-scrollbar {
 }
 .btn-met.disabled {
     background: #04433c;
-    color: #e5e5e5;
+    color: #bfbfbf;
     border-color: #065f55;
 }
 .btn-met:hover {
@@ -1000,7 +1004,7 @@ body::-webkit-scrollbar {
 
 .btn-met.disabled:hover {
     background: #04433c;
-	color: #e5e5e5;
+	color: #bfbfbf;
     border-color: #065f55;
 }
 
