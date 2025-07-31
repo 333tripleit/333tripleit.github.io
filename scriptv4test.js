@@ -169,10 +169,11 @@ const redTimer = document.getElementById('TimerRed');
 //btnExit.style.display = 'none';
 //btnAdd.style.display = 'none';
 //btnSave.style.display = 'none';
-//btnActivate.disabled = true;
-//btnExit.disabled     = true;
-//btnAdd.disabled      = true;
-//btnSave.disabled     = true;
+
+btnActivate.disabled = true;
+btnExit.disabled     = true;
+btnAdd.disabled      = true;
+btnSave.disabled     = true;
 
 btnActivate.classList.add('disabled')
 btnExit.classList.add('disabled')
@@ -205,6 +206,7 @@ function checkAuth(iconsData) {
           metControls.classList.add('open');
 		  btnActivate.classList.add('open');
           btnActivate.classList.remove('disabled')
+		  btnActivate.disabled = false;
 		  initMET(iconsData);
         } else {
           console.log(`The ${username} is not an editor`);
@@ -299,6 +301,7 @@ function initMET(iconsData) {
     function updateSaveState() {
 	  const hasChanges = !(diff.added.length || diff.updated.length || diff.deleted.length);
 	  btnSave.classList.toggle('disabled', hasChanges);
+	  btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
     }
 
     function onMarkerClick(e) {
@@ -320,6 +323,9 @@ function initMET(iconsData) {
 	//Кнопка включения МЕТ
     btnActivate.addEventListener('click', () => {
       metActive = true;
+	  btnActivate.disabled = true;
+	  btnExit.disabled = false;
+	  btnAdd.disabled = false;
       btnActivate.classList.add('disabled')
       btnExit.classList.remove('disabled')
       btnAdd.classList.remove('disabled')
@@ -422,6 +428,9 @@ function initMET(iconsData) {
 		  btnActivate.classList.remove('disabled')
 		  btnExit.classList.add('disabled')
 		  btnAdd.classList.add('disabled')
+		  btnActivate.disabled = false;
+		  btnExit.disabled = true;
+		  btnAdd.disabled = true;
 		  btnExit.classList.remove('open');
 		  btnAdd.classList.remove('open');
 		  btnSave.classList.remove('open');
@@ -712,6 +721,7 @@ function initMET(iconsData) {
     btnSave.addEventListener('click', () => {
 	  exitSave = true;
       btnSave.classList.add('disabled')
+	  btnSave.disabled = true;
 	  btnExit.textContent = 'Exit and save';
 	  editPopup.remove();
     });
