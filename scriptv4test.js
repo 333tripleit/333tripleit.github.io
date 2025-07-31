@@ -257,7 +257,7 @@ coloredRegionsToggle.addEventListener('change', () => {
 
 function paintingRegions() {
   existingMarkers.forEach(m => {
-    const cssHexColor = regColor[marker.options.region] || '#fff';
+    const cssHexColor = reg_color[marker.options.region] || '#fff';
     const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = marker.options.custom_rgbcolor;
