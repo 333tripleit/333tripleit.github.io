@@ -134,8 +134,9 @@ let iconsData, markersData, icons, overlays;
 	marker.options.level = height;
 
 	const el = marker.getElement();
+	console.log('Перед querySelector, переменная =', el);
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
-	console.log('Перед querySelector, переменная =', path);
+	console.log('После querySelector, переменная =', path);
 	const { R, G, B } = color;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_color = cssColor;
