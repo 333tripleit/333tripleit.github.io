@@ -987,6 +987,7 @@ body::-webkit-scrollbar {
     border: solid;
     border-width: 2px;
     border-color: #0ca796;
+	pointer-events: auto;
 }
 .btn-met.disabled {
     background: #04433c;
