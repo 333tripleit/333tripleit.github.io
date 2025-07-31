@@ -248,14 +248,14 @@ let customColorsEnabled = false;
 
 coloredRegionsToggle.addEventListener('change', () => {
   coloredRegionsEnabled = !coloredRegionsEnabled;
-  paintingRegions();
+  paintingRegions(marker);
   
   customCursor.style.display = customCursorEnabled ? 'block' : 'none';
   customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
   document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
 });
 
-function paintingRegions() {
+function paintingRegions(marker) {
   existingMarkers.forEach(m => {
     const cssHexColor = reg_color[marker.options.region] || '#fff';
     const el = marker.getElement();
