@@ -69,7 +69,6 @@ map.on('zoomend', function () {
 
 //Переменные для редактирования существующих меток
 //START
-//const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
 const layers   = {};
 //END
@@ -78,13 +77,8 @@ const layers   = {};
 let originalMarkersData = [];
 
 
-//Слои меток + Фильтры
+//Слои меток
 //START
-//Promise.all([
-//  fetch("categories.json").then(res => res.json()),
-//  fetch("icons.json").then(res => res.json()),
-//  fetch("markers.json").then(res => res.json())
-//])
 
 let iconsData, markersData, icons, overlays;
 
@@ -141,6 +135,7 @@ let iconsData, markersData, icons, overlays;
 
 	const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+	console.log('Перед querySelector, переменная =', path);
 	const { R, G, B } = color;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_color = cssColor;
