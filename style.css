@@ -892,3 +892,48 @@ body::-webkit-scrollbar {
     border-color: #007368a3;
 }
 
+.met {
+    display: none;
+}
+
+.met.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-login {
+    display: block;
+}
+.btn-login.hide {
+    display: none;
+}
+
+.btn-start {
+    display: none;
+}
+.btn-start.open {
+    display: block;
+}
+
+.btn-exit {
+    display: none;
+}
+.btn-exit.open {
+    display: block;
+}
+
+.btn-add {
+    display: none;
+}
+.btn-add.open {
+    display: block;
+}
+
+
+.btn-save {
+    display: none;
+}
+.btn-save.open {
+    display: block;
+}
