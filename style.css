@@ -892,20 +892,6 @@ body::-webkit-scrollbar {
     border-color: #007368a3;
 }
 
-.met {
-	display: none;
-    background: #0B0B0B;
-    position: absolute;
-    z-index: 1;
-    transform: translateX(calc(50vw - 50%)) translateY(calc(0px));
-}
-
-.met.open {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .btn-login {
     display: block;
 }
@@ -941,3 +927,34 @@ body::-webkit-scrollbar {
 .btn-save.open {
     display: block;
 }
+
+.met {
+	display: none;
+    background: #0B0B0B;
+    position: absolute;
+    z-index: 1;
+    transform: translateX(calc(50vw - 50%)) translateY(calc(0px));
+}
+
+.met.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.met .optheader {
+    background: #0B0B0B;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    margin: 0;
+    padding-top: 18px;
+    padding-right: 32px;
+    padding-bottom: 18px;
+    padding-left: 32px;
+}
+
+    /*margin: 10px;*/
+    /* padding-top: 0px; */
+    /* padding-right: 0px; */
+    /* padding-bottom: 0px; */
+    /* padding-left: 0px;

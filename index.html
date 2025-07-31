@@ -45,11 +45,15 @@
     </svg>
   </div>
   <div id="met-controls" class="met">
-	<h3 class="optheader">MET Controllers</h3>
-	<button id="activate-met" class="btn-start">Activate MET</button>
-	<button id="exit-met" class="btn-exit" disabled>Exit MET</button>
-	<button id="add-marker" class="btn-add" disabled>Add Marker</button>
-    <button id="save-changes" class="btn-save" disabled>Save Changes</button>
+    <div class="met-controls-container">
+	  <h3 class="optheader">MET Controllers</h3>
+	  <div class="met-button-container">
+	    <button id="activate-met" class="btn-met btn-start">Activate MET</button>
+	    <button id="exit-met" class="btn-met btn-exit" disabled>Exit MET</button>
+	    <button id="add-marker" class="btn-met btn-add" disabled>Add Marker</button>
+        <button id="save-changes" class="btn-met btn-save" disabled>Save Changes</button>
+	  </div>
+	</div>
   </div>
   <main class="map-container">
     <aside id="map-controls" class="controls">
