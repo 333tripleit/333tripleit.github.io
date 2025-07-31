@@ -193,13 +193,13 @@ function checkAuth(iconsData) {
       if (data.authorized) {
         const username = data.username;
         usernameDisplay.textContent = `Hello, ${username}`;
-        loginButton.style.display = "none";
+        loginButton.classList.add('hide');
 		
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
-          metControls.style.display = 'block';
-		  btnActivate.style.display = 'block';
+          metControls.classList.add('open');
+		  btnActivate.classList.add('open');
           btnActivate.disabled = false;
 		  initMET(iconsData);
         } else {
@@ -318,9 +318,9 @@ function initMET(iconsData) {
       btnActivate.disabled = true;
       btnExit.disabled = false;
       btnAdd.disabled = false;
-      btnExit.style.display = 'block';
-      btnAdd.style.display = 'block';
-      btnSave.style.display = 'block';
+      btnExit.classList.add('open');
+      btnAdd.classList.add('open');
+      btnSave.classList.add('open');
 	  addingMarker = false;
       setAddMode();
       existingMarkers.forEach(m => {
@@ -417,9 +417,9 @@ function initMET(iconsData) {
 		  btnActivate.disabled = false;
 		  btnExit.disabled = true;
 		  btnAdd.disabled = true;
-		  btnExit.style.display = 'none';
-		  btnAdd.style.display = 'none';
-		  btnSave.style.display = 'none';
+		  btnExit.classList.remove('open');
+		  btnAdd.classList.remove('open');
+		  btnSave.classList.remove('open');
 		  addingMarker = false;
 		  setAddMode();
 		  discardChanges();
