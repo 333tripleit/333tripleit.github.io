@@ -988,7 +988,7 @@ body::-webkit-scrollbar {
     border-width: 2px;
     border-color: #0ca796;
 }
-.btn-met .disabled {
+.btn-met.disabled {
     background: #04433c;
     color: #e5e5e5;
     border-color: #065f55;
@@ -998,7 +998,7 @@ body::-webkit-scrollbar {
     border-color: #12d7c2;
 }
 
-.btn-met:hover .disabled {
+.btn-met.disabled:hover {
     background: #04433c;
 	color: #e5e5e5;
     border-color: #065f55;
