@@ -930,7 +930,7 @@ body::-webkit-scrollbar {
 
 .met {
 	display: none;
-    background: #0B0B0B;
+    /*background: #0B0B0B;*/
     position: absolute;
     z-index: 1;
     transform: translateX(calc(50vw - 50%)) translateY(calc(0px));
@@ -948,13 +948,86 @@ body::-webkit-scrollbar {
     border-bottom-left-radius: 16px;
     margin: 0;
     padding-top: 18px;
-    padding-right: 32px;
+    padding-right: 40px;
     padding-bottom: 18px;
-    padding-left: 32px;
+    padding-left: 40px;
 }
+
+.met-controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.met-button-container {
+    background: #002d2887;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border: solid;
+    border-color: #00100fd4;
+    border-width: 4px;
+    width: 120px;
+    padding-bottom: 24px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: -4px;
+}
+
+.btn-met {
+    margin-top: 10px;
+    height: calc(1.8em);
+    width: calc(7.8em);
+    border-radius: 8px;
+    background: #044f47;
+    color: white;
+    font-size: 14px;
+    border: solid;
+    border-width: 2px;
+    border-color: #0ca796;
+}
+.btn-met .disabled {
+    background: #04433c;
+    color: #e5e5e5;
+    border-color: #065f55;
+}
+.btn-met:hover {
+    background: #08897b;
+    border-color: #12d7c2;
+}
+
+.btn-met:hover .disabled {
+    background: #04433c;
+	color: #e5e5e5;
+    border-color: #065f55;
+}
+
 
     /*margin: 10px;*/
     /* padding-top: 0px; */
     /* padding-right: 0px; */
     /* padding-bottom: 0px; */
     /* padding-left: 0px;
+	
+.options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    background: #002d2887;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    margin-left: 54px;
+    padding-bottom: 36px;
+    padding-right: 20px;
+    height: 200px;
+    pointer-events: auto;
+    border: solid;
+    border-color: #00100fd4;
+    border-width: 4px;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0px);
+}

@@ -169,11 +169,15 @@ const redTimer = document.getElementById('TimerRed');
 //btnExit.style.display = 'none';
 //btnAdd.style.display = 'none';
 //btnSave.style.display = 'none';
+//btnActivate.disabled = true;
+//btnExit.disabled     = true;
+//btnAdd.disabled      = true;
+//btnSave.disabled     = true;
 
-btnActivate.disabled = true;
-btnExit.disabled     = true;
-btnAdd.disabled      = true;
-btnSave.disabled     = true;
+btnActivate.classList.add('disabled')
+btnExit.classList.add('disabled')
+btnAdd.classList.add('disabled')
+btnSave.classList.add('disabled')
 //END
 //Переменные блока MET
 
@@ -200,7 +204,7 @@ function checkAuth(iconsData) {
 		  
           metControls.classList.add('open');
 		  btnActivate.classList.add('open');
-          btnActivate.disabled = false;
+          btnActivate.classList.remove('disabled')
 		  initMET(iconsData);
         } else {
           console.log(`The ${username} is not an editor`);
@@ -293,7 +297,8 @@ function initMET(iconsData) {
 	
 	//Обновление состояния кнопки btnSave
     function updateSaveState() {
-      btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+	  const hasChanges = !(diff.added.length || diff.updated.length || diff.deleted.length);
+	  btnSave.classList.toggle('disabled', hasChanges);
     }
 
     function onMarkerClick(e) {
@@ -315,9 +320,9 @@ function initMET(iconsData) {
 	//Кнопка включения МЕТ
     btnActivate.addEventListener('click', () => {
       metActive = true;
-      btnActivate.disabled = true;
-      btnExit.disabled = false;
-      btnAdd.disabled = false;
+      btnActivate.classList.add('disabled')
+      btnExit.classList.remove('disabled')
+      btnAdd.classList.remove('disabled')
       btnExit.classList.add('open');
       btnAdd.classList.add('open');
       btnSave.classList.add('open');
@@ -414,9 +419,9 @@ function initMET(iconsData) {
 		  // Выход без сохранения
 		  exitModal.classList.add('exit-hidden');
 		  metActive = false;
-		  btnActivate.disabled = false;
-		  btnExit.disabled = true;
-		  btnAdd.disabled = true;
+		  btnActivate.classList.remove('disabled')
+		  btnExit.classList.add('disabled')
+		  btnAdd.classList.add('disabled')
 		  btnExit.classList.remove('open');
 		  btnAdd.classList.remove('open');
 		  btnSave.classList.remove('open');
@@ -706,7 +711,7 @@ function initMET(iconsData) {
 	//Сохранение изменений в json
     btnSave.addEventListener('click', () => {
 	  exitSave = true;
-      btnSave.disabled = true;
+      btnSave.classList.add('disabled')
 	  btnExit.textContent = 'Exit and save';
 	  editPopup.remove();
     });
