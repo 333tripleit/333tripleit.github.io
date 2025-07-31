@@ -893,7 +893,11 @@ body::-webkit-scrollbar {
 }
 
 .met {
-    display: none;
+	display: none;
+    background: #0B0B0B;
+    position: absolute;
+    z-index: 1;
+    transform: translateX(calc(50vw - 50%)) translateY(calc(0px));
 }
 
 .met.open {
