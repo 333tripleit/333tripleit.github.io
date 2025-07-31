@@ -96,10 +96,6 @@ let iconsData, markersData, icons, overlays;
 
   overlays = {};
 
-  const defaultLayer = L.layerGroup().addTo(map);
-  layers[null] = defaultLayer;
-  overlays['Uncategorized'] = defaultLayer;
-
   iconsData.forEach(ic => {
     const img = new Image();
     img.src = ic.url;
@@ -143,7 +139,6 @@ let iconsData, markersData, icons, overlays;
 	marker.options.region = reg_id;
 	marker.options.level = height;
 
-    layer.addLayer(marker);
 	const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = color;
