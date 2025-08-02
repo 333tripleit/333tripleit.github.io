@@ -274,10 +274,6 @@ function paintingMarkers() {
     path.style.color =
       (coloredRegionsEnabled && isWhite && cssHexColor)
       || marker.options.custom_csscolor;
-	  
-	path.style.color =
-      (coloredRegionsEnabled && isWhite && cssHexColor)
-      || marker.options.custom_csscolor;
   });
 }
 
