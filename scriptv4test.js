@@ -290,7 +290,7 @@ function paintingMarkers() {
 	const cWhite = '#fff';
 	const cGray = '#7f7f7f';
 
-    path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color))) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
+    path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color)) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
   });
 }
 
