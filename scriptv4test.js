@@ -279,7 +279,9 @@ function paintingMarkers() {
   });
 }
 
-paintingMarkers()
+document.addEventListener('DOMContentLoaded', () => {
+  paintingMarkers()
+})
 
 //END
 //Блок Options
