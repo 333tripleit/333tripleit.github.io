@@ -140,7 +140,10 @@ let iconsData, markersData, icons, overlays;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_rgbcolor = color;
 	marker.options.custom_csscolor = cssColor;
-	//if (path) path.style.color = cssColor;
+	const Rh = Math.floor(R / 2)
+	const Gh = Math.floor(G / 2)
+	const Bh = Math.floor(B / 2)
+	marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
 	paintingMarkers();
     existingMarkers.set(marker.options.id, marker);
   });
@@ -237,6 +240,16 @@ const reg_color = {
   ocean:        '#d1defb',
 };
 
+const reg_heightcolor = {
+  fox_island:   '#7d705e',
+  misthaven:    '#6e637d',
+  mosswood:     '#5f7d63',
+  stormvale:    '#7c7d66',
+  frigid_peaks: '#5e717d',
+  ashlands:     '#7d6565',
+  ocean:        '#686f7d',
+};
+
 const coloredRegionsToggle = document.getElementById('toggle-regions');
 const heightDisplayToggle = document.getElementById('toggle-height');
 const coloredMarkersToggle = document.getElementById('toggle-color');
@@ -252,6 +265,11 @@ coloredRegionsToggle.addEventListener('change', () => {
   paintingMarkers();
 });
 
+heightDisplayToggle.addEventListener('change', () => {
+  heightDisplayEnabled = !heightDisplayEnabled;
+  paintingMarkers();
+});
+
 coloredMarkersToggle.addEventListener('change', () => {
   coloredMarkersEnabled = !coloredMarkersEnabled;
   paintingMarkers();
@@ -259,24 +277,20 @@ coloredMarkersToggle.addEventListener('change', () => {
 
 function paintingMarkers() {
   existingMarkers.forEach(marker => {
-	
-	
+	const markerHeightGround = !marker.options.level;
+	const markerUnderground = heightDisplayEnabled && !markerHeightGround;
     const cssHexColor = reg_color[marker.options.region] || '#fff';
+	const cssHeightHexColor = reg_heightcolor[marker.options.region] || '#7f7f7f';
 	
     const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = marker.options.custom_rgbcolor;
 	
 	const white = [R, G, B].every(v => v === 255);
-	const isWhite = !coloredMarkersEnabled || white;
 	const cWhite = '#fff';
-	
-	const coloredMarker = (!coloredMarkersEnabled && cWhite) || marker.options.custom_csscolor
-	
-	
-    path.style.color =
-      (coloredRegionsEnabled && isWhite && cssHexColor)
-      || coloredMarker;
+	const cGray = '#7f7f7f';
+
+    path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color))) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
   });
 }
 
