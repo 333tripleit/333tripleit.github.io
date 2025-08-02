@@ -259,13 +259,14 @@ coloredMarkersToggle.addEventListener('change', () => {
 function paintingMarkers() {
   existingMarkers.forEach(marker => {
 	
-	const white = [R, G, B].every(v => v === 255);
 	
     const cssHexColor = reg_color[marker.options.region] || '#fff';
 	
     const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = marker.options.custom_rgbcolor;
+	
+	const white = [R, G, B].every(v => v === 255);
 	
 	const isWhite = !coloredMarkersEnabled || white;
 	
