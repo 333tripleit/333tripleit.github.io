@@ -298,7 +298,7 @@
       142.987837
     ],
     "reg_id": "frigid_peaks",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
@@ -316,7 +316,7 @@
       130.65231266517966
     ],
     "reg_id": "frigid_peaks",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
@@ -550,11 +550,11 @@
       130.673076
     ],
     "reg_id": "frigid_peaks",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
-      "G": 255,
-      "B": 255
+      "G": 0,
+      "B": 0
     }
   },
   {
@@ -571,7 +571,7 @@
     "height": 0,
     "color": {
       "R": 255,
-      "G": 255,
+      "G": 0,
       "B": 255
     }
   },
@@ -586,9 +586,9 @@
       145.001264
     ],
     "reg_id": "frigid_peaks",
-    "height": 0,
+    "height": -1,
     "color": {
-      "R": 255,
+      "R": 0,
       "G": 255,
       "B": 255
     }
