@@ -133,16 +133,16 @@ let iconsData, markersData, icons, overlays;
 	marker.options.region = reg_id;
 	marker.options.level = height;
 
-	marker.addTo(map)
+	marker.addTo(map);
 	const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = color;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_rgbcolor = color;
 	marker.options.custom_csscolor = cssColor;
-	const Rh = Math.floor(R / 2)
-	const Gh = Math.floor(G / 2)
-	const Bh = Math.floor(B / 2)
+	const Rh = Math.floor(R / 2);
+	const Gh = Math.floor(G / 2);
+	const Bh = Math.floor(B / 2);
 	marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
 	paintingMarkers();
     existingMarkers.set(marker.options.id, marker);
