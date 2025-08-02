@@ -140,7 +140,7 @@ let iconsData, markersData, icons, overlays;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_rgbcolor = color;
 	marker.options.custom_csscolor = cssColor;
-	if (path) path.style.color = cssColor;
+	//if (path) path.style.color = cssColor;
     existingMarkers.set(marker.options.id, marker);
   });
 
@@ -248,26 +248,39 @@ let customColorsEnabled = false;
 
 coloredRegionsToggle.addEventListener('change', () => {
   coloredRegionsEnabled = !coloredRegionsEnabled;
-  paintingRegions();
-  
-  customCursor.style.display = customCursorEnabled ? 'block' : 'none';
-  customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
-  document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
+  paintingMarkers();
 });
 
-function paintingRegions() {
+coloredMarkersToggle.addEventListener('change', () => {
+  coloredMarkersEnabled = !coloredMarkersEnabled;
+  paintingMarkers();
+});
+
+function paintingMarkers() {
   existingMarkers.forEach(marker => {
+	
+	const white = [R, G, B].every(v => v === 255);
+	
     const cssHexColor = reg_color[marker.options.region] || '#fff';
+	
     const el = marker.getElement();
 	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = marker.options.custom_rgbcolor;
 	
-	const isWhite = [R, G, B].every(v => v === 255);
-    path.style.fill =
+	const isWhite = !coloredMarkersEnabled || white;
+	
+	
+    path.style.color =
+      (coloredRegionsEnabled && isWhite && cssHexColor)
+      || marker.options.custom_csscolor;
+	  
+	path.style.color =
       (coloredRegionsEnabled && isWhite && cssHexColor)
       || marker.options.custom_csscolor;
   });
 }
+
+paintingMarkers()
 
 //END
 //Блок Options
