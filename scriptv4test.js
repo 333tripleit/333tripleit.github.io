@@ -141,6 +141,7 @@ let iconsData, markersData, icons, overlays;
 	marker.options.custom_rgbcolor = color;
 	marker.options.custom_csscolor = cssColor;
 	//if (path) path.style.color = cssColor;
+	paintingMarkers();
     existingMarkers.set(marker.options.id, marker);
   });
 
@@ -278,10 +279,6 @@ function paintingMarkers() {
       || coloredMarker;
   });
 }
-
-
-paintingMarkers();
-
 
 //END
 //Блок Options
