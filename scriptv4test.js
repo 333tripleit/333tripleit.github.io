@@ -267,13 +267,15 @@ function paintingMarkers() {
 	const { R, G, B } = marker.options.custom_rgbcolor;
 	
 	const white = [R, G, B].every(v => v === 255);
-	
 	const isWhite = !coloredMarkersEnabled || white;
+	const cWhite = '#fff';
+	
+	const coloredMarker = (!coloredMarkersEnabled && cWhite) || marker.options.custom_csscolor
 	
 	
     path.style.color =
       (coloredRegionsEnabled && isWhite && cssHexColor)
-      || marker.options.custom_csscolor;
+      || coloredMarker;
   });
 }
 
