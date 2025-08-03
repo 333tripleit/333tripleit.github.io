@@ -824,15 +824,18 @@ function initMET(iconsData) {
 			6: "ashlands",
 			7: "undefined"
 		}
-		if (data.get('region') === 'auto') {
-			initRegionCanvas('Regions.png')
-			  .then(ctx => {
-				const reg_index = getRegionIndex(ctx, lng, lat);
-				marker.options.reg_index = reg_index;
-
-				console.log('reg_index:', reg_index);
-			  })
-		}
+		(async () => {
+		  if (data.get('region') === 'auto') {
+			try {
+			  const ctx = await initRegionCanvas('Regions.png');
+			  const reg_index = getRegionIndex(ctx, lng, lat);
+			  marker.options.reg_index = reg_index;
+			  console.log('reg_index:', reg_index);
+			} catch (err) {
+			  console.error('Loading Regions.png:', err);
+			}
+		  }
+		})();
 		
 		const regionAuto_id = reg_list[reg_index]
 		const reg_id = regionAuto_id || data.get('region');
