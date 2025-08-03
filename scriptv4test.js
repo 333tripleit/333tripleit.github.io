@@ -156,6 +156,8 @@ let iconsData, markersData, icons, overlays;
 //END
 //Слои меток + Фильтры
 
+let ctx = 0;
+
 //Переменные блока MET
 //START
 const metControls = document.getElementById('met-controls');
@@ -340,6 +342,8 @@ function genId(title, lat, lng) {
 let exitSave = false;
 
 
+
+
 //Блок MET
 //START
 function initMET(iconsData) {
@@ -416,10 +420,32 @@ function initMET(iconsData) {
       }
     }
 
+	function initRegionCanvas(src) {
+	  console.log('initRegionCanvas(', src, ')');
+	  return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.crossOrigin = 'anonymous';
+		img.onload = () => {
+		  console.log('image loaded');
+		  const canvas = document.getElementById('regions-canvas');
+		  canvas.width  = img.width;
+		  canvas.height = img.height;
+		  const ctx = canvas.getContext('2d');
+		  ctx.drawImage(img, 0, 0);
+		  resolve(ctx);
+		};
+		img.onerror = reject;
+		img.src = src;
+	  });
+	}
+
 	//Кнопка включения МЕТ
     btnActivate.addEventListener('click', () => {
       metActive = true;
 	  btnActivate.disabled = true;
+	  (async () => {
+	    ctx = await initRegionCanvas('Regions.png');
+	  })();
 	  btnExit.disabled = false;
 	  btnAdd.disabled = false;
       btnActivate.classList.add('disabled')
@@ -584,7 +610,6 @@ function initMET(iconsData) {
 	}
 	
 	/////////////////////////////////////
-	const ctx = initRegionCanvas('Regions.png');
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
@@ -788,24 +813,6 @@ function initMET(iconsData) {
 	  });
 		  
 	  
-	  function initRegionCanvas(src) {
-		console.log('initRegionCanvas(', src, ')');
-	    return new Promise((resolve, reject) => {
-		  const img = new Image();
-		  img.crossOrigin = 'anonymous';
-		  img.onload = () => {
-			console.log('image loaded');
-		    const canvas = document.getElementById('regions-canvas');
-		    canvas.width  = img.width;
-		    canvas.height = img.height;
-		    const ctx = canvas.getContext('2d');
-		    ctx.drawImage(img, 0, 0);
-		    resolve(ctx);
-		  };
-		  img.onerror = reject;
-		  img.src = src;
-	    });
-	  }
 	  
 	  function getRegionIndex(ctx, posX, posY) {
 	    const x = Math.floor(posX * 32);
@@ -843,17 +850,15 @@ function initMET(iconsData) {
 			6: "ashlands",
 			7: "undefined"
 		};
-		(async () => {
-		  if (autoRegCheck) {
-			try {
-			  reg_index = getRegionIndex(ctx, lng, lat);
-			  marker.options.reg_index = reg_index;
-			  console.log('reg_index:', reg_index);
-			} catch (err) {
-			  console.error('Loading Regions.png:', err);
-			}
+		if (autoRegCheck) {
+		  try {
+		    reg_index = getRegionIndex(ctx, lng, lat);
+		    marker.options.reg_index = reg_index;
+		    console.log('reg_index:', reg_index);
+		  } catch (err) {
+		    console.error('Loading Regions.png:', err);
 		  }
-		})();
+		}
 		
 		const regionAuto_id = autoRegCheck && reg_list[reg_index];
 		const reg_id = regionAuto_id || data.get('region');
