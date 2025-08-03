@@ -817,7 +817,8 @@ function initMET(iconsData) {
         const icon_id = data.get('icon') || 'default';
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
-		let reg_index = 0;
+		let reg_index = 7;
+		const autoRegCheck = data.get('region') === 'auto';
 		
 		const reg_list = {
 			0: "ocean",
@@ -830,7 +831,7 @@ function initMET(iconsData) {
 			7: "undefined"
 		};
 		(async () => {
-		  if (data.get('region') === 'auto') {
+		  if (autoRegCheck) {
 			try {
 			  const ctx = await initRegionCanvas('Regions.png');
 			  reg_index = getRegionIndex(ctx, lng, lat);
@@ -842,7 +843,7 @@ function initMET(iconsData) {
 		  }
 		})();
 		
-		const regionAuto_id = reg_list[reg_index]
+		const regionAuto_id = autoRegCheck && reg_list[reg_index];
 		const reg_id = regionAuto_id || data.get('region');
 		console.log('region:', reg_id);
 		const height = (data.get('underground') && heightDown) || heightUp;
