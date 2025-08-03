@@ -635,9 +635,10 @@ function initMET(iconsData) {
 	  }
 	  
 	  colorPicker.on('color:change', function(color) {
-		const rgbColor = color.rgb;
-		const { r, g, b } = color.rgb;
+		const rgbColor = colorPicker.color.rgb;
+		const { r, g, b } = colorPicker.color.rgb;
 		colorIn.value = `${r},${g},${b}`;
+		console.log (rgbColor);
 		dynamicPaintSingleMarker(marker, rgbColor);
 	  });
 	 
