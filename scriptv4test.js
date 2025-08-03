@@ -695,6 +695,14 @@ function initMET(iconsData) {
 			exitchecker = false;
 			map.removeLayer(marker);
 		};
+		if (exitchecker && popapsaved) {
+		  exitchecker = false;
+		  marker.setLatLng(marker.options.coords);
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
+		  paintSingleMarker(marker);
+		  updateSaveState();
+		};
 		if (!exitchecker && popapsaved) {
 		  exitchecker = false;
 		  marker.setLatLng(marker.options.coords);
