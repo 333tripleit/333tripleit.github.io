@@ -243,10 +243,10 @@ const reg_color = {
 };
 
 const reg_heightcolor = {
-  fox_island:   '#d47f1c',
+  fox_island:   '#a16826',
   misthaven:    '#684d93',
-  mosswood:     '#48b14f',
-  stormvale:    '#bfcc3e',
+  mosswood:     '#4c9b46',
+  stormvale:    '#9ca630',
   frigid_peaks: '#27acc4',
   ashlands:     '#993d3d',
   ocean:        '#385299',
