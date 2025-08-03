@@ -775,6 +775,7 @@ function initMET(iconsData) {
 		  
 	  
 	  function initRegionCanvas(src) {
+		console.log('initRegionCanvas(', src, ')');
 	    return new Promise((resolve, reject) => {
 		  const img = new Image();
 		  img.crossOrigin = 'anonymous';
