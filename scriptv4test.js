@@ -144,7 +144,7 @@ let iconsData, markersData, icons, overlays;
 	const Gh = Math.floor(G / 2);
 	const Bh = Math.floor(B / 2);
 	marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
-	paintingMarkers();
+	paintingAllMarkers();
     existingMarkers.set(marker.options.id, marker);
   });
 
@@ -262,20 +262,20 @@ let customColorsEnabled = false;
 
 coloredRegionsToggle.addEventListener('change', () => {
   coloredRegionsEnabled = !coloredRegionsEnabled;
-  paintingMarkers();
+  paintingAllMarkers();
 });
 
 heightDisplayToggle.addEventListener('change', () => {
   heightDisplayEnabled = !heightDisplayEnabled;
-  paintingMarkers();
+  paintingAllMarkers();
 });
 
 coloredMarkersToggle.addEventListener('change', () => {
   coloredMarkersEnabled = !coloredMarkersEnabled;
-  paintingMarkers();
+  paintingAllMarkers();
 });
 
-function paintingMarkers() {
+function paintingAllMarkers() {
   existingMarkers.forEach(marker => {
 	const markerHeightGround = !marker.options.level;
 	const markerUnderground = heightDisplayEnabled && !markerHeightGround;
@@ -292,6 +292,31 @@ function paintingMarkers() {
 
     path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color)) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
   });
+}
+
+function paintSingleMarker(marker) {
+  const markerHeightGround = !marker.options.level;
+  const markerUnderground = heightDisplayEnabled && !markerHeightGround;
+  const cssHexColor = reg_color[marker.options.region] || '#fff';
+  const cssHeightHexColor = reg_heightcolor[marker.options.region] || '#7f7f7f';
+	
+  const el = marker.getElement();
+  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+  const { R, G, B } = marker.options.custom_rgbcolor;
+
+  const white = [R, G, B].every(v => v === 255);
+  const cWhite = '#fff';
+  const cGray = '#7f7f7f';
+
+  path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color)) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
+}
+
+function dynamicPaintSingleMarker(marker, rgbColor) {
+  const { R, G, B } = rgbColor;
+  const dynamicColor = `rgb(${R}, ${G}, ${B})`;
+  const el = marker.getElement();
+  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+  path.style.color = dynamicColor;
 }
 
 //END
@@ -582,31 +607,68 @@ function initMET(iconsData) {
       const titleIn = form.querySelector('input[name="title"]');
       const descIn = form.querySelector('textarea[name="description"]');
       const iconSel = form.querySelector('select[name="icon"]');
+	  const regSel = form.querySelector('select[name="region"]');
+	  const levelIn = form.querySelector('input[name="underground"]');
+	  const colorIn = form.querySelector('#color-input');
       const latIn = form.querySelector('input[name="lat"]');
       const lngIn = form.querySelector('input[name="lng"]');
       const latlng = marker.getLatLng();
+	  
+	  const pickerEl = document.querySelector('#color-picker');
+	  
+	  const colorPicker = new iro.ColorPicker(pickerEl, {
+	    width: 200,
+	    color: { r: 255, g: 255, b: 255 },
+	    layout: [
+		  {
+		    component: iro.ui.Wheel,
+		  }
+	    ]
+	  });
+	  
+	  function initFormColor(initial) {
+	    // initial может быть строкой "#rrggbb" или {r,g,b}
+	    colorPicker.color.set(initial);
+	    const { r, g, b } = colorPicker.color.rgb;
+	    colorIn.value = `${r},${g},${b}`;
+	  }
+	  
+	  colorPicker.on('color:change', function(color) {
+		const rgbColor = color.rgb;
+		const { r, g, b } = color.rgb;
+		colorIn.value = `${r},${g},${b}`;
+		dynamicPaintSingleMarker(marker, rgbColor);
+	  });
+	 
+	  
 	  //Сборка попапа
-	  //START
 
       iconsData.forEach(ic => {
-        const opt = document.createElement('option');
-        opt.value = ic.id;
-        opt.textContent = ic.name;
-        iconSel.append(opt);
+        const icOpt = document.createElement('option');
+        icOpt.value = ic.id;
+        icOpt.textContent = ic.name;
+        iconSel.append(icOpt);
       });
 
       if (isNew) {
         titleIn.value = 'Name_PlaceHolder';
         descIn.value = 'Description_PlaceHolder';
         iconSel.value = 'default';
+		regSel.value = 'auto';
+		levelIn.checked = false;
+		colorIn.value = '#fff';
         latIn.value = latlng.lat;
         lngIn.value = latlng.lng;
+		initFormColor('#fff');
       } else {
         titleIn.value = marker.options.name;
         descIn.value = marker.options.description;
         iconSel.value = marker.options.icon_id || 'default';
+		regSel.value = marker.options.region || 'auto';
+		levelIn.checked = !marker.options.level;
         latIn.value = marker.options.coords[0];
         lngIn.value = marker.options.coords[1];
+		initFormColor(marker.options.custom_csscolor || '#fff');
       }
 	  //END
 	  //Сборка попапа
@@ -621,6 +683,7 @@ function initMET(iconsData) {
 	  }
 	  editPopup.on('remove', () => {
 		editPopupOpen = false;
+		paintSingleMarker(marker)
 		marker.off('mousedown', draggingEnable);
 		marker.off('mouseup mouseleave', draggingCancel);
 		map.off('zoom');
@@ -710,10 +773,39 @@ function initMET(iconsData) {
 	  });
 		  
 	  
+	  function initRegionCanvas(src) {
+	    return new Promise((resolve, reject) => {
+		  const img = new Image();
+		  img.crossOrigin = 'anonymous';
+		  img.src = src;
+		  img.onload = () => {
+		    const canvas = document.getElementById('regions-canvas');
+		    canvas.width  = img.width;
+		    canvas.height = img.height;
+		    const ctx = canvas.getContext('2d');
+		    ctx.drawImage(img, 0, 0);
+		    resolve(ctx);
+		  };
+		  img.onerror = reject;
+	    });
+	  }
+	  
+	  function getRegionIndex(ctx, posX, posY) {
+	    const x = Math.floor(posX * 32);
+	    const y = 8192 - Math.floor(posY * 32);
+
+	    // читаем единственный пиксель
+	    const pixel = ctx.getImageData(x, y, 1, 1).data;
+	    const [R, G, B, A] = pixel;
+	    return R;  // reg_index
+	  }
+	  
 	  
 	  //Функция обработчик изменений маркера
 	  //START
       submitBtn.addEventListener('click', ev => {
+		const heightUp = 0;
+		const heightDown = -1;
         ev.preventDefault();
         const data = new FormData(formEl);
         const name = data.get('title') || 'Name_PlaceHolder';
@@ -721,22 +813,60 @@ function initMET(iconsData) {
         const icon_id = data.get('icon') || 'default';
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
+		
+		const reg_list = {
+			0: "ocean",
+			1: "fox_island",
+			2: "misthaven",
+			3: "mosswood",
+			4: "stormvale",
+			5: "frigid_peaks",
+			6: "ashlands",
+			7: "undefined"
+		}
+		if (data.get('region') === 'auto') {
+			initRegionCanvas('Regions.png')
+			  .then(ctx => {
+				const reg_index = getRegionIndex(ctx, lng, lat);
+				marker.options.reg_index = reg_index;
+
+				console.log('reg_index:', reg_index);
+			  })
+		}
+		
+		const regionAuto_id = reg_list[reg_index]
+		const reg_id = regionAuto_id || data.get('region');
+		console.log('region:', reg_id);
+		const height = (data.get('underground') && heightDown) || heightUp;
+		
+		const triple = data.get('color');
+		const [r, g, b] = triple.split(',').map(n => Number(n));
+		const color = { R: r, G: g, B: b };
 
         if (isNew) {
           const newId = genId(name, lat, lng);
           marker.options.id = newId;
           existingMarkers.set(newId, marker);
 		  marker.on('click', onMarkerClick);
-          diff.added.push({ id: newId, name, description, icon_id, coords: [lat, lng] });
+          diff.added.push({ id: newId, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
         } else {
 		  diff.updated = diff.updated.filter(u => u.id !== marker.options.id);
-          diff.updated.push({ id: marker.options.id, name, description, icon_id, coords: [lat, lng] });
+          diff.updated.push({ id: marker.options.id, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
         }
-
+		const cssColor = `rgb(${R}, ${G}, ${B})`;
+		
         marker.options.name = name;
         marker.options.description = description;
         marker.options.icon_id = icon_id;
         marker.options.coords = [lat, lng];
+		marker.options.region = reg_id;
+		marker.options.level = height;
+		marker.options.custom_rgbcolor = color;
+		marker.options.custom_csscolor = cssColor;
+		const rh = Math.floor(r / 2);
+		const gh = Math.floor(g / 2);
+		const bh = Math.floor(b / 2);
+		marker.options.height_color = `rgb(${rh}, ${gh}, ${bh})`;
         marker.setLatLng([lat, lng]);
         const ic = icons[icon_id] || icons.default;
         marker.setIcon(ic);

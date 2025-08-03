@@ -5,10 +5,12 @@
   <title>SOTN2 Interactive Map</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jaames/iro@5.5.3/dist/iro.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="cursor.css" />
 </head>
 <body>
+  <canvas id="regions-canvas" style="display:none;"></canvas>
   <header class="header-container">
     <div class="header-pos-container">
 	  <div class="header-hopt-container">
@@ -377,18 +379,33 @@
 		  <textarea name="description" maxlength="600" placeholder="Description_PlaceHolder"></textarea>
 		</label><br/>
 
-		<label>Category
-		  <select name="category">
-			<option value="" selected>none</option>
+		<label>Region
+		  <select name="region">
+			<option value="auto" selected>Auto</option>
+			<option value="fox_island" selected>Fox Island</option>
+			<option value="misthaven" selected>Misthaven</option>
+			<option value="mosswood" selected>Mosswood</option>
+			<option value="stormvale" selected>Stormvale</option>
+			<option value="frigid_peaks" selected>Frigid Peaks</option>
+			<option value="ashlands" selected>Ashlands</option>
+			<option value="ocean" selected>Ocean</option>
 		  </select>
 		</label><br/>
+
+		<label>
+		  <input type="checkbox" name="underground" />
+		  Underground
+		</label>
 
 		<label>Icon
 		  <select name="icon">
-			<option value="" selected>default</option>
+			<!-- <option value="default" selected>Default</option> -->
 		  </select>
 		</label><br/>
-
+		<label>Color
+		  <div id="color-picker"></div>
+		  <input type="hidden" name="color" id="color-input" />
+		</label>
 		<label>Y
 		  <input type="number" name="lat" step="any" required />
 		</label>
@@ -556,6 +573,7 @@
     </div>
   </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5.5.3/dist/iro.min.js"></script>
   <script src="scriptv4test.js"></script>
   <script src="cursor.js"></script>
   <script src="UIScript.js"></script>
