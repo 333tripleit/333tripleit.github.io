@@ -778,7 +778,6 @@ function initMET(iconsData) {
 	    return new Promise((resolve, reject) => {
 		  const img = new Image();
 		  img.crossOrigin = 'anonymous';
-		  img.src = src;
 		  img.onload = () => {
 			console.log('image loaded');
 		    const canvas = document.getElementById('regions-canvas');
@@ -789,6 +788,7 @@ function initMET(iconsData) {
 		    resolve(ctx);
 		  };
 		  img.onerror = reject;
+		  img.src = src;
 	    });
 	  }
 	  
