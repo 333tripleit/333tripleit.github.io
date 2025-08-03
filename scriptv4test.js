@@ -820,6 +820,7 @@ function initMET(iconsData) {
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
 		let reg_index = 7;
+		console.log (data.get('region'));
 		
 		const reg_list = {
 			0: "ocean",
