@@ -21,14 +21,13 @@
     "id": "Ruins_of_Kindred_Spire_10706540_069122_069438",
     "name": "Ruins of Kindred Spire",
     "description": "Once a monument to the kinship between tribes.",
-    "category_id": null,
     "icon_id": "ruins",
     "coords": [
       69.12166320507762,
       69.4375
     ],
     "reg_id": "fox_island",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
@@ -273,14 +272,13 @@
     "id": "Obelisk_57275402_052305_095109",
     "name": "Obelisk",
     "description": "Description_PlaceHolder",
-    "category_id": "obelisk",
     "icon_id": "obelisk",
     "coords": [
       52.30476977498249,
       95.10924860167134
     ],
     "reg_id": "fox_island",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
@@ -993,14 +991,13 @@
     "id": "Western_Misthaven_Raccoon_Grotto_51148364_189479_057938",
     "name": "Eastern Misthaven Raccoon Grotto",
     "description": "Sells: Misty key, Brown fur, Feather Fall rune, Bright Heart rune",
-    "category_id": null,
     "icon_id": "raccoonGrotto",
     "coords": [
       189.47851452410083,
       57.9375
     ],
     "reg_id": "misthaven",
-    "height": 0,
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
@@ -1433,6 +1430,23 @@
     ],
     "reg_id": "misthaven",
     "height": 0,
+    "color": {
+      "R": 255,
+      "G": 255,
+      "B": 255
+    }
+  },
+  {
+    "id": "Name_PlaceHolder_29733285_195233_163750",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "icon_id": "default",
+    "coords": [
+      195.23277405722882,
+      163.75
+    ],
+    "reg_id": "stormvale",
+    "height": -1,
     "color": {
       "R": 255,
       "G": 255,
