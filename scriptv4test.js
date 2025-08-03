@@ -315,7 +315,8 @@ function dynamicPaintSingleMarker(marker, rgbColor) {
   const { r, g, b } = rgbColor;
   const dynamicColor = `rgb(${r}, ${g}, ${b})`;
   const el = marker.getElement();
-  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+  const isNewChecker = (isNew && 'default') || marker.options.icon_id;
+  const path = el.querySelector(`#${isNewChecker}_svg`);
   path.style.color = dynamicColor;
 }
 
@@ -655,6 +656,7 @@ function initMET(iconsData) {
         titleIn.value = 'Name_PlaceHolder';
         descIn.value = 'Description_PlaceHolder';
         iconSel.value = 'default';
+		marker.options.icon_id = 'default';
 		regSel.value = 'auto';
 		levelIn.checked = false;
 		colorIn.value = '#fff';
@@ -713,6 +715,7 @@ function initMET(iconsData) {
       iconSel.addEventListener('change', e => {
         const ic = icons[e.target.value] || icons.default;
         marker.setIcon(ic);
+		marker.options.icon_id = ic;
 		paintSingleMarker(marker);
       });
 	  
