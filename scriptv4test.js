@@ -315,8 +315,8 @@ function dynamicPaintSingleMarker(marker, rgbColor) {
   const { r, g, b } = rgbColor;
   const dynamicColor = `rgb(${r}, ${g}, ${b})`;
   const el = marker.getElement();
-  const isNewChecker = (isNew && 'default') || marker.options.icon_id;
-  const path = el.querySelector(`#${isNewChecker}_svg`);
+  //const isNewChecker = (isNew && 'default') || marker.options.icon_id;
+  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
   path.style.color = dynamicColor;
 }
 
