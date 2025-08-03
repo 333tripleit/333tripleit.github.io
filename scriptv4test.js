@@ -780,6 +780,7 @@ function initMET(iconsData) {
 		  img.crossOrigin = 'anonymous';
 		  img.src = src;
 		  img.onload = () => {
+			console.log('image loaded');
 		    const canvas = document.getElementById('regions-canvas');
 		    canvas.width  = img.width;
 		    canvas.height = img.height;
