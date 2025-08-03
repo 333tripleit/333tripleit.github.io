@@ -666,7 +666,7 @@ function initMET(iconsData) {
         descIn.value = marker.options.description;
         iconSel.value = marker.options.icon_id || 'default';
 		regSel.value = marker.options.region || 'auto';
-		levelIn.checked = !marker.options.level;
+		levelIn.checked = marker.options.level;
         latIn.value = marker.options.coords[0];
         lngIn.value = marker.options.coords[1];
 		initFormColor(marker.options.custom_csscolor || '#fff');
