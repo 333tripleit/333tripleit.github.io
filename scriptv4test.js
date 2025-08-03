@@ -713,6 +713,7 @@ function initMET(iconsData) {
       iconSel.addEventListener('change', e => {
         const ic = icons[e.target.value] || icons.default;
         marker.setIcon(ic);
+		paintSingleMarker(marker);
       });
 	  
 	  // Функция активации перемещения иконки
@@ -895,6 +896,7 @@ function initMET(iconsData) {
 		  marker.setLatLng(marker.options.coords);
 		  const ic = icons[marker.options.icon_id] || icons.default;
           marker.setIcon(ic);
+		  paintSingleMarker(marker);
         }
         editPopup.remove();
         updateSaveState();
