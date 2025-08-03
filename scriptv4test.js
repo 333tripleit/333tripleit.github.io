@@ -1,3 +1,5 @@
+import iro from '@jaames/iro';
+
 const mapTile = 256;
 const mapSize = 8192;
 const mapTileBorder = 128;
