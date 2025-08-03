@@ -684,7 +684,6 @@ function initMET(iconsData) {
 	  }
 	  editPopup.on('remove', () => {
 		editPopupOpen = false;
-		paintSingleMarker(marker)
 		marker.off('mousedown', draggingEnable);
 		marker.off('mouseup mouseleave', draggingCancel);
 		map.off('zoom');
@@ -699,6 +698,7 @@ function initMET(iconsData) {
 		  marker.setLatLng(marker.options.coords);
 		  const ic = icons[marker.options.icon_id] || icons.default;
           marker.setIcon(ic);
+		  paintSingleMarker(marker);
 		  updateSaveState();
 		};
 	  });
