@@ -584,7 +584,7 @@ function initMET(iconsData) {
 	}
 	
 	/////////////////////////////////////
-	const ctx = await initRegionCanvas('Regions.png');
+	const ctx = initRegionCanvas('Regions.png');
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
