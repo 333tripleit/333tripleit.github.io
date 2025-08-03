@@ -824,7 +824,7 @@ function initMET(iconsData) {
 			5: "frigid_peaks",
 			6: "ashlands",
 			7: "undefined"
-		}
+		};
 		(async () => {
 		  if (data.get('region') === 'auto') {
 			try {
