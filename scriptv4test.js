@@ -707,6 +707,9 @@ function initMET(iconsData) {
       const submitBtn = popupEl.querySelector('#submit-btn');
       const discardBtn = popupEl.querySelector('#discard-btn');
 	  const deleteBtn = popupEl.querySelector('#delete-btn');
+	  const sel = popupEl.querySelector('select[name="region"]');
+		console.log('select element:', sel);
+		console.log('select.value:', sel ? sel.value : '(нет элемента)');
 	  
 	  //Динамическое изменение иконки
       iconSel.addEventListener('change', e => {
