@@ -858,7 +858,7 @@ function initMET(iconsData) {
 		  diff.updated = diff.updated.filter(u => u.id !== marker.options.id);
           diff.updated.push({ id: marker.options.id, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
         }
-		const cssColor = `rgb(${R}, ${G}, ${B})`;
+		const cssColor = `rgb(${r}, ${g}, ${b})`;
 		
         marker.options.name = name;
         marker.options.description = description;
