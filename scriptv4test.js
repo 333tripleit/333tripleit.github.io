@@ -814,6 +814,7 @@ function initMET(iconsData) {
         const icon_id = data.get('icon') || 'default';
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
+		let reg_index = 7;
 		
 		const reg_list = {
 			0: "ocean",
@@ -829,7 +830,7 @@ function initMET(iconsData) {
 		  if (data.get('region') === 'auto') {
 			try {
 			  const ctx = await initRegionCanvas('Regions.png');
-			  const reg_index = getRegionIndex(ctx, lng, lat);
+			  reg_index = getRegionIndex(ctx, lng, lat);
 			  marker.options.reg_index = reg_index;
 			  console.log('reg_index:', reg_index);
 			} catch (err) {
