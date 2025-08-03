@@ -793,6 +793,9 @@ function initMET(iconsData) {
 		  img.onerror = reject;
 		  img.src = src;
 	    });
+		reg_index = getRegionIndex(ctx, lng, lat);
+		marker.options.reg_index = reg_index;
+		console.log('reg_index:', reg_index);
 	  }
 	  
 	  function getRegionIndex(ctx, posX, posY) {
@@ -835,9 +838,6 @@ function initMET(iconsData) {
 		  if (autoRegCheck) {
 			try {
 			  const ctx = await initRegionCanvas('Regions.png');
-			  reg_index = getRegionIndex(ctx, lng, lat);
-			  marker.options.reg_index = reg_index;
-			  console.log('reg_index:', reg_index);
 			} catch (err) {
 			  console.error('Loading Regions.png:', err);
 			}
