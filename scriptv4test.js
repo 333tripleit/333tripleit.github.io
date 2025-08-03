@@ -312,8 +312,8 @@ function paintSingleMarker(marker) {
 }
 
 function dynamicPaintSingleMarker(marker, rgbColor) {
-  const { R, G, B } = rgbColor;
-  const dynamicColor = `rgb(${R}, ${G}, ${B})`;
+  const { r, g, b } = rgbColor;
+  const dynamicColor = `rgb(${r}, ${g}, ${b})`;
   const el = marker.getElement();
   const path = el.querySelector(`#${marker.options.icon_id}_svg`);
   path.style.color = dynamicColor;
@@ -635,10 +635,9 @@ function initMET(iconsData) {
 	  }
 	  
 	  colorPicker.on('color:change', function(color) {
-		const rgbColor = colorPicker.color.rgb;
-		const { r, g, b } = colorPicker.color.rgb;
+		const rgbColor = color.rgb;
+		const { r, g, b } = color.rgb;
 		colorIn.value = `${r},${g},${b}`;
-		console.log (rgbColor);
 		dynamicPaintSingleMarker(marker, rgbColor);
 	  });
 	 
