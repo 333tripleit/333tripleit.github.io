@@ -708,8 +708,6 @@ function initMET(iconsData) {
       const discardBtn = popupEl.querySelector('#discard-btn');
 	  const deleteBtn = popupEl.querySelector('#delete-btn');
 	  const sel = popupEl.querySelector('select[name="region"]');
-		console.log('select element:', sel);
-		console.log('select.value:', sel ? sel.value : '(нет элемента)');
 	  
 	  //Динамическое изменение иконки
       iconSel.addEventListener('change', e => {
@@ -819,8 +817,7 @@ function initMET(iconsData) {
         const icon_id = data.get('icon') || 'default';
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
-		let reg_index = 7;
-		console.log (data.get('region'));
+		let reg_index = 0;
 		
 		const reg_list = {
 			0: "ocean",
