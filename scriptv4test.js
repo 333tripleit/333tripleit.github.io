@@ -233,23 +233,23 @@ function checkAuth(iconsData) {
 //START
 
 const reg_color = {
-  fox_island:   '#fae0bc',
-  misthaven:    '#ddc7fa',
-  mosswood:     '#bffac6',
-  stormvale:    '#f8fbcd',
-  frigid_peaks: '#bce3fa',
-  ashlands:     '#fbcaca',
-  ocean:        '#d1defb',
+  fox_island:   '#ffb257',
+  misthaven:    '#b890f9',
+  mosswood:     '#69ec72',
+  stormvale:    '#e6f368',
+  frigid_peaks: '#89e1f0',
+  ashlands:     '#fa7a7a',
+  ocean:        '#7497f7',
 };
 
 const reg_heightcolor = {
-  fox_island:   '#7d705e',
-  misthaven:    '#6e637d',
-  mosswood:     '#5f7d63',
-  stormvale:    '#7c7d66',
-  frigid_peaks: '#5e717d',
-  ashlands:     '#7d6565',
-  ocean:        '#686f7d',
+  fox_island:   '#d47f1c',
+  misthaven:    '#684d93',
+  mosswood:     '#48b14f',
+  stormvale:    '#bfcc3e',
+  frigid_peaks: '#27acc4',
+  ashlands:     '#993d3d',
+  ocean:        '#385299',
 };
 
 const coloredRegionsToggle = document.getElementById('toggle-regions');
