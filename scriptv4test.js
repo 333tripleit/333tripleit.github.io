@@ -609,12 +609,13 @@ function initMET(iconsData) {
       const iconSel = form.querySelector('select[name="icon"]');
 	  const regSel = form.querySelector('select[name="region"]');
 	  const levelIn = form.querySelector('input[name="underground"]');
-	  const colorIn = form.querySelector('#color-input');
+	  
       const latIn = form.querySelector('input[name="lat"]');
       const lngIn = form.querySelector('input[name="lng"]');
       const latlng = marker.getLatLng();
 	  
-	  const pickerEl = document.querySelector('#color-picker');
+	  const pickerEl = form.querySelector('.color-picker');
+	  const colorIn = form.querySelector('.color-input');
 	  
 	  const colorPicker = new iro.ColorPicker(pickerEl, {
 	    width: 200,
