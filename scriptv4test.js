@@ -30,7 +30,7 @@ const map = L.map('map', {
   minZoom: 2,
   maxZoom: 5,
   zoomSnap: 0.025,
-  zoomDelta: 0.025,
+  zoomDelta: 0.5,
   zoom: 2,
   zoomControl: true,
   maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
