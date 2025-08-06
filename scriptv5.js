@@ -70,25 +70,22 @@ map.on('zoomend', function () {
 //Переменные для редактирования существующих меток
 //START
 const existingMarkers = new Map();
+let originalMarkersData = [];
 const layers   = {};
 //END
 //Переменные для редактирования существующих меток
-
-let originalMarkersData = [];
 
 
 //Слои меток
 //START
 
-let iconsData, markersData, icons, overlays;
+let iconsData, markersData, icons;
 
 (async () => {
   [iconsData, markersData] = await Promise.all([
     fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
     fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
   ]);
-
-  overlays = {};
 
   iconsData.forEach(ic => {
     const img = new Image();
@@ -148,7 +145,7 @@ let iconsData, markersData, icons, overlays;
     existingMarkers.set(marker.options.id, marker);
   });
 
-  checkAuth(iconsData);
+  checkAuth();
 
 })().catch(error => console.error("JSON reading error:", error));
 
@@ -194,7 +191,7 @@ btnSave.classList.add('disabled')
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 
-function checkAuth(iconsData) {
+function checkAuth() {
   fetch("https://testproxyserveroauth.onrender.com/auth/me", {
     credentials: "include"
   })
@@ -212,7 +209,7 @@ function checkAuth(iconsData) {
 		  btnActivate.classList.add('open');
           btnActivate.classList.remove('disabled')
 		  btnActivate.disabled = false;
-		  initMET(iconsData);
+		  initMET();
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -346,7 +343,7 @@ let exitSave = false;
 
 //Блок MET
 //START
-function initMET(iconsData) {
+function initMET() {
   (function () {
 	let editPopup;
 	editPopup = L.popup({
