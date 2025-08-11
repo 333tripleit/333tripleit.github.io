@@ -290,7 +290,7 @@ customColorsToggle.addEventListener('change', () => {
 
 instantFilterToggle.addEventListener('change', () => {
   instantFilterEnabled = !instantFilterEnabled;
-  filterTime = instantFilterEnabled ? 0 : 1500;
+  filterTime = instantFilterEnabled ? 10 : 1500;
 });
 
 function paintingAllMarkers() {
@@ -1002,9 +1002,6 @@ const filterOpenBtn = document.getElementById('filter-open');
 const filterCont = document.getElementById('filter-container');
 const headerLeftCont = document.getElementById('header-hfilter-left-container');
 const filterClearBtn = document.getElementById('filter-reset');
-
-const instantFilterBtn = document.getElementById('option-instantf');
-const instantFilter = instantFilterBtn.querySelector('input[type="checkbox"]')
 
 
 optHideBtn.addEventListener('click', () => {
