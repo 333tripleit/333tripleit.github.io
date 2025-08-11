@@ -1166,7 +1166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	  
 	  runFilter();
     });
-  });
   
   
   
