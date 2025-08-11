@@ -176,7 +176,7 @@ body::-webkit-scrollbar {
     margin-left: 54px;
     padding-bottom: 36px;
     padding-right: 20px;
-    height: 200px;
+    height: calc(2.5em + (32px * 6));
     pointer-events: auto;
     border: solid;
     border-color: #00100fd4;
