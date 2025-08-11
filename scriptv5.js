@@ -1193,6 +1193,32 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+function pickStrategy(IA, IO, RA, RO) {
+  const HAS_AND = IA || RA;
+  const HAS_OR  = IO || RO;
+
+  if (!HAS_AND && !HAS_OR) {
+    return (si, sr) => true;
+  }
+
+  if (HAS_AND && !HAS_OR) {
+    if (IA && RA) return (si, sr) => (si === State.And && sr === State.And);
+    if (IA)       return (si, sr) => (si === State.And);
+    /* RA */      return (si, sr) => (sr === State.And);
+  }
+
+  if (!HAS_AND && HAS_OR) {
+    return (si, sr) => (si === State.Or || sr === State.Or);
+  }
+  if (!IA && !IO && RA && RO) return (si, sr) => (sr === State.And);
+  if (IA && IO && !RA && !RO) return (si, sr) => (si === State.And);
+  if (!IA && RA && IO)        return (si, sr) => (sr === State.And && si === State.Or);
+  if (IA && !RA && RO)        return (si, sr) => (si === State.And && sr === State.Or);
+  if (IA && RA)               return (si, sr) => (si === State.And && sr === State.And);
+
+  return (si, sr) => false;
+}
+
 function buildShowTable(IA, IO, RA, RO) {
   const st = { None:0, Or:1, Excl:2, And:3 };
   const allow = pickStrategy(IA, IO, RA, RO);
