@@ -1072,7 +1072,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       iconsgrid.dataset.state = nextState;
 	  
-	  runFilter();
+		console.log('[call-site] typeof runFilter =', typeof runFilter);
+		console.log('[call-site] is function?', runFilter && runFilter.name, runFilter?.toString().slice(0,60));
+		debugger; // поставь брейк тут
+		runFilter?.();
+	  //runFilter();
     });
   });
 
