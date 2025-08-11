@@ -257,11 +257,16 @@ const coloredRegionsToggle = document.getElementById('toggle-regions');
 const heightDisplayToggle = document.getElementById('toggle-height');
 const coloredMarkersToggle = document.getElementById('toggle-color');
 const customColorsToggle = document.getElementById('toggle-customcolor');
+const instantFilterToggle = document.getElementById('toggle-instantf');
 
 let coloredRegionsEnabled = false;
 let heightDisplayEnabled = false;
 let coloredMarkersEnabled = true;
 let customColorsEnabled = false;
+
+let instantFilterEnabled = false;
+let filterTime = 1500;
+
 
 coloredRegionsToggle.addEventListener('change', () => {
   coloredRegionsEnabled = !coloredRegionsEnabled;
@@ -276,6 +281,16 @@ heightDisplayToggle.addEventListener('change', () => {
 coloredMarkersToggle.addEventListener('change', () => {
   coloredMarkersEnabled = !coloredMarkersEnabled;
   paintingAllMarkers();
+});
+
+customColorsToggle.addEventListener('change', () => {
+  customColorsEnabled = !customColorsEnabled;
+  //paintingAllMarkers();
+});
+
+instantFilterToggle.addEventListener('change', () => {
+  instantFilterEnabled = !instantFilterEnabled;
+  filterTime = instantFilterEnabled ? 0 : 1500;
 });
 
 function paintingAllMarkers() {
@@ -988,6 +1003,9 @@ const filterCont = document.getElementById('filter-container');
 const headerLeftCont = document.getElementById('header-hfilter-left-container');
 const filterClearBtn = document.getElementById('filter-reset');
 
+const instantFilterBtn = document.getElementById('option-instantf');
+const instantFilter = instantFilterBtn.querySelector('input[type="checkbox"]')
+
 
 optHideBtn.addEventListener('click', () => {
   optionsCont.classList.add('hide');
@@ -1026,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let allRegionOR = 0;
   let allRegionAND = 0;
   
-  const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, 300, {leading: false, trailing: true});
+  const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
 
 
   document.querySelectorAll('.icons-grid label').forEach(iconsgrid => {
@@ -1189,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	  label.dataset.state = 'none';
 	});
 	
-	runFilter.cancel();
+	runFilter();
   });
 });
 
@@ -1257,7 +1275,7 @@ function setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allI
       const sr = regionParam.get(marker.options.region) ?? 0;
       const next = !!showTable[si][sr];
 
-      if (marker._$visible === next) continue;         // локальный дифф
+      if (marker._$visible === next) continue;
       marker._$visible = next;
 
       const el = marker.getElement?.() || marker._icon;
@@ -1282,7 +1300,6 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
   const now = () => Date.now();
 
   const invoke = (time) => {
-	console.log('[debounce] invoke at', time);
     lastInvokeTime = time;
     const r = fn.apply(lastThis, lastArgs);
     lastArgs = lastThis = undefined;
@@ -1292,7 +1309,6 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
 
   const startTimer = (ms) => {
     if (timerId) clearTimeout(timerId);
-	console.log('[debounce] startTimer', ms);
     timerId = setTimeout(timerExpired, ms);
   };
 
@@ -1309,21 +1325,17 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
     if (lastCallTime === undefined) return true;
     const sinceLastCall   = time - lastCallTime;
     const sinceLastInvoke = time - lastInvokeTime;
-	console.log('[debounce] shouldInvoke?', (sinceLastCall >= wait) || (sinceLastCall < 0) ||
-           (maxWait !== undefined && sinceLastInvoke >= maxWait), {sinceLastCall, sinceLastInvoke});
     return (sinceLastCall >= wait) || (sinceLastCall < 0) ||
            (maxWait !== undefined && sinceLastInvoke >= maxWait);
   };
 
   const leadingEdge = (time) => {
-	console.log('[debounce] leadingEdge');
     lastInvokeTime = time;
     startTimer(wait);
     return leading ? invoke(time) : undefined;
   };
 
   const trailingEdge = (time) => {
-	console.log('[debounce] trailingEdge');
     timerId = undefined;
     if (trailing && lastArgs !== undefined) {
       return invoke(time);
@@ -1334,14 +1346,12 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
 
   const timerExpired = () => {
     const time = now();
-	console.log('[debounce] timerExpired');
     if (shouldInvoke(time)) return trailingEdge(time);
     startTimer(remainingWait(time));
   };
 
   function debounced(...args) {
     const time = now();
-	console.log('[debounce] call', time);
     lastArgs = args;
     lastThis = this;
     lastCallTime = time;
@@ -1358,14 +1368,12 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
   
 
   debounced.cancel = () => {
-	console.log('[debounce] cancel');
     if (timerId) clearTimeout(timerId);
     timerId = lastArgs = lastThis = lastCallTime = undefined;
     lastInvokeTime = 0;
   };
 
   debounced.flush = () => {
-	console.log('[debounce] flush');
     if (timerId === undefined) return result;
     return trailingEdge(now());
   };
