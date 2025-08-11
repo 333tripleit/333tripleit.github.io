@@ -1315,6 +1315,13 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
     }
     return result;
   }
+  
+  if (timerId === undefined) {
+    startTimer(wait);
+  } else {
+    startTimer(remainingWait(time));
+  }
+  return result;
 
   debounced.cancel = () => {
 	console.log('[debounce] cancel');
