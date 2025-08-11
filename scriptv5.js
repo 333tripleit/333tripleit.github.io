@@ -288,11 +288,6 @@ customColorsToggle.addEventListener('change', () => {
   //paintingAllMarkers();
 });
 
-instantFilterToggle.addEventListener('change', () => {
-  instantFilterEnabled = !instantFilterEnabled;
-  filterTime = instantFilterEnabled ? 10 : 1500;
-});
-
 function paintingAllMarkers() {
   existingMarkers.forEach(marker => {
 	const markerHeightGround = !marker.options.level;
@@ -1041,7 +1036,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let allRegionOR = 0;
   let allRegionAND = 0;
   
-  const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
+  let runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
+
+  instantFilterToggle.addEventListener('change', () => {
+    instantFilterEnabled = !instantFilterEnabled;
+    filterTime = instantFilterEnabled ? 10 : 1500;
+    runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
+  });
 
 
   document.querySelectorAll('.icons-grid label').forEach(iconsgrid => {
