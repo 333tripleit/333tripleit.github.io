@@ -1245,6 +1245,7 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
   const now = () => Date.now();
 
   const invoke = (time) => {
+	console.log('[debounce] invoke at', time);
     lastInvokeTime = time;
     const r = fn.apply(lastThis, lastArgs);
     lastArgs = lastThis = undefined;
@@ -1254,6 +1255,7 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
 
   const startTimer = (ms) => {
     if (timerId) clearTimeout(timerId);
+	console.log('[debounce] startTimer', ms);
     timerId = setTimeout(timerExpired, ms);
   };
 
@@ -1270,17 +1272,21 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
     if (lastCallTime === undefined) return true;
     const sinceLastCall   = time - lastCallTime;
     const sinceLastInvoke = time - lastInvokeTime;
+	console.log('[debounce] shouldInvoke?', (sinceLastCall >= wait) || (sinceLastCall < 0) ||
+           (maxWait !== undefined && sinceLastInvoke >= maxWait), {sinceLastCall, sinceLastInvoke});
     return (sinceLastCall >= wait) || (sinceLastCall < 0) ||
            (maxWait !== undefined && sinceLastInvoke >= maxWait);
   };
 
   const leadingEdge = (time) => {
+	console.log('[debounce] leadingEdge');
     lastInvokeTime = time;
     startTimer(wait);
     return leading ? invoke(time) : undefined;
   };
 
   const trailingEdge = (time) => {
+	console.log('[debounce] trailingEdge');
     timerId = undefined;
     if (trailing && lastArgs !== undefined) {
       return invoke(time);
@@ -1291,12 +1297,14 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
 
   const timerExpired = () => {
     const time = now();
+	console.log('[debounce] timerExpired');
     if (shouldInvoke(time)) return trailingEdge(time);
     startTimer(remainingWait(time));
   };
 
   function debounced(...args) {
     const time = now();
+	console.log('[debounce] call', time);
     lastArgs = args;
     lastThis = this;
     lastCallTime = time;
@@ -1309,12 +1317,14 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
   }
 
   debounced.cancel = () => {
+	console.log('[debounce] cancel');
     if (timerId) clearTimeout(timerId);
     timerId = lastArgs = lastThis = lastCallTime = undefined;
     lastInvokeTime = 0;
   };
 
   debounced.flush = () => {
+	console.log('[debounce] flush');
     if (timerId === undefined) return result;
     return trailingEdge(now());
   };
