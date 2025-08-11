@@ -1311,13 +1311,9 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
       if (timerId === undefined) return leadingEdge(time);
       startTimer(remainingWait(time));
     }
-    return result;
 	
-    if (timerId === undefined) {
-      startTimer(wait);
-    } else {
-      startTimer(remainingWait(time));
-    }
+	if (timerId === undefined) startTimer(wait);
+	
     return result;
   }
   
