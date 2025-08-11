@@ -1007,8 +1007,6 @@ filterOpenBtn.addEventListener('click', () => {
   headerLeftCont.classList.remove('open');
 });
 
-const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, 300, {leading: false, trailing: true});
-
 document.addEventListener('DOMContentLoaded', () => {
   const svgMap = {
     or:    document.getElementById('--or'),
@@ -1028,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let allRegionOR = 0;
   let allRegionAND = 0;
   
+  const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, 300, {leading: false, trailing: true});
 
 
   document.querySelectorAll('.icons-grid label').forEach(iconsgrid => {
