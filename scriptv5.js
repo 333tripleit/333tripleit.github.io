@@ -1193,30 +1193,44 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function pickStrategy(IA, IO, RA, RO) {
+const cache = new Map(); // key 0..15 -> матрица 4×4
+
+function flagsKey(IA, IO, RA, RO) { // 4 бита
+  return (IA<<3) | (IO<<2) | (RA<<1) | RO;
+}
+
+function buildTableDirect(IA, IO, RA, RO) {
   const HAS_AND = IA || RA;
   const HAS_OR  = IO || RO;
+  const t = Array.from({ length: 4 }, () => new Uint8Array(4));
 
-  if (!HAS_AND && !HAS_OR) {
-    return (si, sr) => true;
+  for (let si = 0; si < 4; si++) for (let sr = 0; sr < 4; sr++) {
+    let show = false;
+    if (si !== 2 && sr !== 2) { // exclude-гейт
+      if (!HAS_AND && !HAS_OR) {
+        show = true;
+      } else if (HAS_AND && !HAS_OR) {
+        show = IA && RA ? (si===3 && sr===3) : IA ? (si===3) : (sr===3);
+      } else if (!HAS_AND && HAS_OR) {
+        show = (si===1 || sr===1);
+      } else { // HAS_AND && HAS_OR
+        if (!IA && !IO && RA && RO) show = (sr===3);
+        else if (IA && IO && !RA && !RO) show = (si===3);
+        else if (!IA && RA && IO) show = (sr===3 && si===1);
+        else if (IA && !RA && RO) show = (si===3 && sr===1);
+        else if (IA && RA) show = (si===3 && sr===3);
+      }
+    }
+    t[si][sr] = show ? 1 : 0;
   }
+  return t;
+}
 
-  if (HAS_AND && !HAS_OR) {
-    if (IA && RA) return (si, sr) => (si === State.And && sr === State.And);
-    if (IA)       return (si, sr) => (si === State.And);
-    /* RA */      return (si, sr) => (sr === State.And);
-  }
-
-  if (!HAS_AND && HAS_OR) {
-    return (si, sr) => (si === State.Or || sr === State.Or);
-  }
-  if (!IA && !IO && RA && RO) return (si, sr) => (sr === State.And);
-  if (IA && IO && !RA && !RO) return (si, sr) => (si === State.And);
-  if (!IA && RA && IO)        return (si, sr) => (sr === State.And && si === State.Or);
-  if (IA && !RA && RO)        return (si, sr) => (si === State.And && sr === State.Or);
-  if (IA && RA)               return (si, sr) => (si === State.And && sr === State.And);
-
-  return (si, sr) => false;
+function getShowTable(IA, IO, RA, RO) {
+  const key = flagsKey(IA, IO, RA, RO);
+  let t = cache.get(key);
+  if (!t) { t = buildTableDirect(IA, IO, RA, RO); cache.set(key, t); }
+  return t;
 }
 
 function buildShowTable(IA, IO, RA, RO) {
@@ -1235,7 +1249,7 @@ function setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allI
   const IA = allIconsAND  > 0, IO = allIconsOR  > 0;
   const RA = allRegionAND > 0, RO = allRegionOR > 0;
 
-  const showTable = buildShowTable(IA, IO, RA, RO);
+  const showTable = getShowTable(IA, IO, RA, RO);
 
   requestAnimationFrame(() => {
     for (const marker of existingMarkers.values()) {
