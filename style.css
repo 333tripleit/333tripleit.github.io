@@ -1035,4 +1035,8 @@ body::-webkit-scrollbar {
     position: relative;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0px);
+}*/
+
+.leaflet-pane .leaflet-marker-icon.is-hidden {
+  display: none !important;
 }

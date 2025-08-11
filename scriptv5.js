@@ -1007,7 +1007,7 @@ filterOpenBtn.addEventListener('click', () => {
   headerLeftCont.classList.remove('open');
 });
 
-const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, 3000, {leading: false, trailing: true});
+const runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, 300, {leading: false, trailing: true});
 
 document.addEventListener('DOMContentLoaded', () => {
   const svgMap = {
@@ -1220,9 +1220,7 @@ function setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allI
       marker._$visible = next;
 
       const el = marker.getElement?.() || marker._icon;
-      if (el) el.style.display = next ? '' : 'none';
-      const shadow = marker._shadow;
-      if (shadow) shadow.style.display = next ? '' : 'none';
+      if (el) el.classList.toggle('is-hidden', !next);
       if (!next) { marker.closePopup?.(); marker.closeTooltip?.(); }
     }
   });
