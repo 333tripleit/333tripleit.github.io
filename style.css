@@ -331,7 +331,7 @@ body::-webkit-scrollbar {
     z-index: 1;
 }
 
-.filterheader .debouncing {
+.filterheader.debouncing {
   animation: filter-scan var(--debounce-ms, 1500ms) linear both;
   background: linear-gradient(
     90deg,
