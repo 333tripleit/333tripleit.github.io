@@ -1074,9 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	  
 		console.log('[call-site] typeof runFilter =', typeof runFilter);
 		console.log('[call-site] is function?', runFilter && runFilter.name, runFilter?.toString().slice(0,60));
-		debugger; // поставь брейк тут
-		runFilter?.();
-	  //runFilter();
+	  runFilter();
     });
   });
 
@@ -1314,14 +1312,15 @@ function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) 
       startTimer(remainingWait(time));
     }
     return result;
+	
+    if (timerId === undefined) {
+      startTimer(wait);
+    } else {
+      startTimer(remainingWait(time));
+    }
+    return result;
   }
   
-  if (timerId === undefined) {
-    startTimer(wait);
-  } else {
-    startTimer(remainingWait(time));
-  }
-  return result;
 
   debounced.cancel = () => {
 	console.log('[debounce] cancel');
