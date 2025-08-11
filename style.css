@@ -304,6 +304,18 @@ body::-webkit-scrollbar {
     border-bottom-right-radius: 16px;
 }
 
+@property --p {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --w {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 5%;
+}
+
 .filterheader {
     display: flex;
     justify-content: space-evenly;
@@ -317,6 +329,25 @@ body::-webkit-scrollbar {
     padding-right: 30px;
     position: relative;
     z-index: 1;
+}
+
+.filterheader .debouncing {
+  animation: filter-scan var(--debounce-ms, 1500ms) linear both;
+  background: linear-gradient(
+    90deg,
+    #0B0B0B 0%,
+    #0B0B0B calc(clamp(0%, calc(var(--p) - var(--w)), 100%)),
+    #00a98a var(--p),
+    #0B0B0B calc(clamp(0%, calc(var(--p) + var(--w)), 100%)),
+    #0B0B0B 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@keyframes filter-scan {
+  from { --p: 0%; }
+  to   { --p: 100%; }
 }
 
 .filheader {

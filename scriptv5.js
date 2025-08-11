@@ -264,8 +264,8 @@ let heightDisplayEnabled = false;
 let coloredMarkersEnabled = true;
 let customColorsEnabled = false;
 
-let instantFilterEnabled = false;
-let filterTime = 1500;
+let instantFilterEnabled = true;
+let filterTime = 10;
 
 
 coloredRegionsToggle.addEventListener('change', () => {
@@ -986,6 +986,22 @@ function initMET() {
 
 //Блок UI
 //START
+
+const header = document.getElementById('filterheader');
+
+function startHeaderAnim(ms) {
+  header.style.setProperty('--debounce-ms', ms + 'ms');
+  header.classList.remove('debouncing');
+  header.offsetWidth;
+  header.classList.add('debouncing');
+}
+
+function stopHeaderAnim() {
+  header.classList.remove('debouncing');
+  header.style.removeProperty('--debounce-ms');
+}
+
+
 const optHideBtn = document.getElementById('option-hide');
 const optOpenBtn = document.getElementById('option-open');
 const optionsCont = document.getElementById('options-container');
@@ -1040,7 +1056,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   instantFilterToggle.addEventListener('change', () => {
     instantFilterEnabled = !instantFilterEnabled;
-    filterTime = instantFilterEnabled ? 10 : 1500;
+    filterTime = instantFilterEnabled ? 0 : 1500;
     runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
   });
 
@@ -1087,8 +1103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       iconsgrid.dataset.state = nextState;
 	  
-		console.log('[call-site] typeof runFilter =', typeof runFilter);
-		console.log('[call-site] is function?', runFilter && runFilter.name, runFilter?.toString().slice(0,60));
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
 	  runFilter();
     });
   });
@@ -1136,6 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       filterregion.dataset.state = nextState;
 	  
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
 	  runFilter();
     });
   });
@@ -1181,6 +1197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       collectedswitch.dataset.state = nextState;
 	  
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
 	  runFilter();
     });
   
@@ -1205,6 +1222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	  label.dataset.state = 'none';
 	});
 	
+	if (!instantFilterEnabled) startHeaderAnim(filterTime);
 	runFilter();
   });
 });
@@ -1281,6 +1299,7 @@ function setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allI
       if (!next) { marker.closePopup?.(); marker.closeTooltip?.(); }
     }
   });
+  stopHeaderAnim();
 }
 
 //END
