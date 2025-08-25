@@ -15,14 +15,6 @@ if (!hasTouch) {
 	if (customCursorEnabled) {
 		document.addEventListener('mousemove', handleMouseMove);
 	}
-/*
-	document.addEventListener('mousemove', e => {
-	  if (customCursorEnabled) {
-		customCursor.style.left = (e.clientX - 26) + 'px';
-		customCursor.style.top  = (e.clientY - 26) + 'px';
-	  }
-	});
-*/
 
 	customCursorMode.addEventListener('change', () => {
 	  customCursorEnabled = !customCursorEnabled;

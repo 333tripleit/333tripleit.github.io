@@ -261,7 +261,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: calc(80vh + 4em);
+    height: calc(100vh - 4em - 2.9em - 12px);
     background: #002d2887;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
