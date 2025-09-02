@@ -2,8 +2,6 @@ const customCursor = document.getElementById('custom-cursor');
 const scaleGroup = document.getElementById('scaleSup');
 const customCursorMode   = document.getElementById('toggle-cursor');
 
-const hasTouch = navigator.maxTouchPoints > 0;
-
 let customCursorEnabled = true;
 document.body.classList.add('custom-cursor-on');
 

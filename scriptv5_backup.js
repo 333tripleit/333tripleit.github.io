@@ -16,56 +16,6 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 let filterMenuOpened = true;
 
-window.addEventListener("load", () => {
-  if (isMobile) {
-    setTimeout(() => {
-      document.querySelector(".options-container").classList.add("transition");
-      document.querySelector(".optionheader").classList.add("transition");
-	  document.querySelector(".optparam").classList.add("transition");
-	  document.querySelector(".filter-container").classList.add("transition");
-	  document.querySelector(".filterheader").classList.add("ftransition");
-	  document.querySelector(".filheader").classList.add("transition");
-	  document.querySelector(".filter-hide").classList.add("transition");
-	  document.querySelector(".btn-reset").classList.add("transition");
-    }, 200);
-  } else {
-    document.querySelector(".options-container").classList.add("transition");
-    document.querySelector(".optionheader").classList.add("transition");
-	document.querySelector(".optparam").classList.add("transition");
-	document.querySelector(".filter-container").classList.add("transition");
-	document.querySelector(".filterheader").classList.add("ftransition");
-	document.querySelector(".filheader").classList.add("transition");
-	document.querySelector(".filter-hide").classList.add("transition");
-	document.querySelector(".btn-reset").classList.add("transition");
-  }
-});
-
-let isMobile = window.matchMedia("(max-width: 768px)").matches;
-let isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-let isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
-let isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
-let isDesktop_FullHD = window.matchMedia("(min-width: 1601px) and (max-width: 1920px)").matches;
-let isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px)").matches;
-let isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
-let hasTouch = navigator.maxTouchPoints > 0;
-
-window.addEventListener("resize", () => {
-	isMobileTemp = window.matchMedia("(max-width: 768px)").matches;
-	if (isMobile === false && isMobileTemp === true) {
-		filterMenuState = false;
-		filtermenuStyleSet(filterMenuState);
-		optMenuState = false;
-		optmenuStyleSet(optMenuState);
-	};
-	isMobile = isMobileTemp;
-	isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-	isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
-	isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
-	isDesktop_FullHD = window.matchMedia("(min-width: 1601px) and (max-width: 1920px)").matches;
-	isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px)").matches;
-	isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
-	hasTouch = navigator.maxTouchPoints > 0;
-});
 
 const allowedEditors = [
 "OoonyxxX", 
@@ -1051,74 +1001,37 @@ function stopHeaderAnim() {
   header.style.removeProperty('--debounce-ms');
 }
 
-function optmenuStyleSet(state) {
-  if (state) {
-	optionsContainer.classList.remove('hide');
-    optionsHeader.classList.remove('hide');
-	optHideBtn.innerText = "Hide";
-  } else {
-	optionsContainer.classList.add('hide');
-    optionsHeader.classList.add('hide');
-	optHideBtn.innerText = "Open";
-  }
-}
-
-function filtermenuStyleSet(state) {
-  if (state) {
-	filterContainer.classList.remove('hide');
-    filterHeader.classList.remove('hide');
-	
-	filterHideBtn.classList.remove('hide');
-	filterClearBtn.classList.remove('hide');
-	filterHeaderText.classList.remove('hide');
-	filterHideBtn.innerText = "Hide";
-  } else {
-	filterContainer.classList.add('hide');
-    filterHeader.classList.add('hide');
-	
-	filterHideBtn.classList.add('hide');
-	filterClearBtn.classList.add('hide');
-	filterHeaderText.classList.add('hide');
-	
-	filterHideBtn.innerText = "Open";
-  }
-}
-
 
 const optHideBtn = document.getElementById('option-hide');
-const optionsContainer = document.getElementById('options-container');
-let optMenuState = !isMobile;
-const optionsHeader = optionsContainer.querySelector('.optionheader');
-optmenuStyleSet(!isMobile);
+const optOpenBtn = document.getElementById('option-open');
+const optionsCont = document.getElementById('options-container');
+const headerRigntCont = document.getElementById('header-hopt-right-container');
 
-optHideBtn.addEventListener('click', () => {
-  optMenuState = !optMenuState;
-  if (isMobile) {
-	filterMenuState = false;
-	filtermenuStyleSet(filterMenuState);
-  };
-  optmenuStyleSet(optMenuState);
-});
 
 const filterHideBtn = document.getElementById('filter-hide');
+const filterOpenBtn = document.getElementById('filter-open');
+const filterCont = document.getElementById('filter-container');
+const headerLeftCont = document.getElementById('header-hfilter-left-container');
 const filterClearBtn = document.getElementById('filter-reset');
-const filterContainer = document.getElementById('filter-container');
-let filterMenuState = !isMobile;
-const filterHeader = filterContainer.querySelector('.filterheader');
-const filterHeaderText = filterHeader.querySelector('.filheader');
-filtermenuStyleSet(!isMobile);
 
-filterHideBtn.addEventListener('click', () => {
-  filterMenuState = !filterMenuState;
-  if (isMobile) {
-	optMenuState = false;
-	optmenuStyleSet(optMenuState);
-  };
-  filtermenuStyleSet(filterMenuState);
+
+optHideBtn.addEventListener('click', () => {
+  optionsCont.classList.add('hide');
+  headerRigntCont.classList.add('open');
+});
+optOpenBtn.addEventListener('click', () => {
+  optionsCont.classList.remove('hide');
+  headerRigntCont.classList.remove('open');
 });
 
-
-
+filterHideBtn.addEventListener('click', () => {
+  filterCont.classList.add('hide');
+  headerLeftCont.classList.add('open');
+});
+filterOpenBtn.addEventListener('click', () => {
+  filterCont.classList.remove('hide');
+  headerLeftCont.classList.remove('open');
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const svgMap = {
