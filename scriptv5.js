@@ -311,12 +311,12 @@ function checkAuth() {
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
-          metControls.classList.add('open');
-		  btnActivate.classList.add('open');
-          btnActivate.classList.remove('disabled')
-		  btnActivate.disabled = false;
 		  METStart = True;
 		  if (!isMobile) {
+            metControls.classList.add('open');
+		    btnActivate.classList.add('open');
+            btnActivate.classList.remove('disabled')
+		    btnActivate.disabled = false;
 			initMET();
 			METInited = true;
 		  }
