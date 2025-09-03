@@ -311,7 +311,7 @@ function checkAuth() {
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
-		  METStart = True;
+		  METStart = true;
 		  if (!isMobile) {
             metControls.classList.add('open');
 		    btnActivate.classList.add('open');
