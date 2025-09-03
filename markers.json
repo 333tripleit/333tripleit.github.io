@@ -1024,20 +1024,19 @@
   },
   {
     "id": "Name_PlaceHolder_20316103_146989_155500",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
+    "name": "Mikawife",
+    "description": "Deus Vult",
     "icon_id": "skillPoint",
     "coords": [
-      146.98914448947346,
-      155.5
+      129.608415,
+      64.5
     ],
     "reg_id": "frigid_peaks",
     "height": 0,
     "color": {
       "R": 255,
-      "G": 255,
-      "B": 255
+      "G": 94,
+      "B": 156
     }
   },
   {
