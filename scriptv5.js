@@ -15,6 +15,8 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 let filterMenuOpened = true;
+let METStart = false;
+
 
 window.addEventListener("load", () => {
   if (isMobile) {
@@ -40,7 +42,8 @@ window.addEventListener("load", () => {
   }
 });
 
-let isMobile = window.matchMedia("(max-width: 768px)").matches;
+let mobile = window.matchMedia("(max-width: 768px)");
+let isMobile = mobile.matches;
 let isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
 let isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
 let isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
@@ -49,15 +52,65 @@ let isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px
 let isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
 let hasTouch = navigator.maxTouchPoints > 0;
 
+let METInited = false;
+
+
+mobile.addEventListener('change', (e) => {
+  const next = e.matches;
+  if (next === isMobile) return;
+  isMobile = next;
+  if (isMobile) onEnterMobile();
+  else onExitMobile();
+});
+
+function onEnterMobile() {
+  filterMenuState = false;
+  filtermenuStyleSet(false);
+
+  optMenuState = false;
+  optmenuStyleSet(false);
+
+  toggleMET(false);
+}
+
+function onExitMobile() {
+  if (METStart) {
+    if (!METInited) {
+      METInited = true;
+      initMET();
+    }
+    toggleMET(true);
+  } else {
+    toggleMET(false);
+  }
+}
+
+
 window.addEventListener("resize", () => {
+	/*
 	isMobileTemp = window.matchMedia("(max-width: 768px)").matches;
-	if (isMobile === false && isMobileTemp === true) {
+	if (!isMobile && isMobileTemp) {
 		filterMenuState = false;
 		filtermenuStyleSet(filterMenuState);
 		optMenuState = false;
 		optmenuStyleSet(optMenuState);
+		if (!(METStart && !isMobile)) {
+			toggleMET(false);
+		}
 	};
+	if (METStart && !isMobile) {
+		if (!METInited) {
+			METInited = true;
+			initMET();
+			toggleMET(true);
+		} else {
+			if (isMobile && !isMobileTemp) {
+			toggleMET(true);
+			}
+		}
+	}
 	isMobile = isMobileTemp;
+	*/
 	isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
 	isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
 	isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
@@ -66,7 +119,6 @@ window.addEventListener("resize", () => {
 	isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
 	hasTouch = navigator.maxTouchPoints > 0;
 });
-
 const allowedEditors = [
 "OoonyxxX", 
 "333tripleit",
@@ -263,7 +315,11 @@ function checkAuth() {
 		  btnActivate.classList.add('open');
           btnActivate.classList.remove('disabled')
 		  btnActivate.disabled = false;
-		  initMET();
+		  METStart = True;
+		  if (!isMobile) {
+			initMET();
+			METInited = true;
+		  }
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -1027,6 +1083,14 @@ function initMET() {
 
   })();
 }
+
+function toggleMET(isOpen) {
+  metControls.classList.toggle('open',     isOpen);
+  btnActivate.classList.toggle('open',     isOpen);
+  btnActivate.classList.toggle('disabled', !isOpen);
+  btnActivate.disabled = !isOpen;
+}
+
 //END
 //Блок MET
 

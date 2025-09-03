@@ -1,6 +1,8 @@
 const customCursor = document.getElementById('custom-cursor');
 const scaleGroup = document.getElementById('scaleSup');
 const customCursorMode   = document.getElementById('toggle-cursor');
+const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button';
+
 
 let customCursorEnabled = true;
 document.body.classList.add('custom-cursor-on');
@@ -8,46 +10,71 @@ document.body.classList.add('custom-cursor-on');
 let mouseX = 0, mouseY = 0, ticking = false;
 customCursor.style.opacity = '0';
 
-
-if (!hasTouch) {
-	if (customCursorEnabled) {
-		document.addEventListener('mousemove', handleMouseMove);
+/*
+function cursorTouchClear(Touch) {
+	if (!Touch) {
+		if (customCursorEnabled) {
+			document.removeEventListener('mousemove', handleMouseMove);
+		}
+		customCursorMode.removeEventListener('change', cursorToggle);
+		document.removeEventListener('mouseover', cursorHoverStart);
+		document.removeEventListener('mouseout', cursorHoverStop);
+	} else {
+		customCursor.style.display = 'block';
+		customCursorMode.removeEventListener('change', customCursorLock);
 	}
-
-	customCursorMode.addEventListener('change', () => {
-	  customCursorEnabled = !customCursorEnabled;
-	  customCursor.style.display = customCursorEnabled ? 'block' : 'none';
-	  document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
+}
+*/
+ 
+function cursorTouchTester(Touch) {
+	if (!Touch) {
 		if (customCursorEnabled) {
 			document.addEventListener('mousemove', handleMouseMove);
-		} else {
-			document.removeEventListener('mousemove', handleMouseMove)
 		}
-	});
-	
-	const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button';
+		document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
+		customCursor.style.display = customCursorEnabled ? 'block' : 'none';
+		customCursorMode.addEventListener('change', cursorToggle);
+		document.addEventListener('mouseover', cursorHoverStart);
+		document.addEventListener('mouseout', cursorHoverStop);
+		customCursorMode.removeEventListener('change', customCursorLock);
+	} else {
+		customCursor.style.display = 'none';
+		customCursorMode.removeEventListener('change', cursorToggle);
+		customCursorMode.addEventListener('change', customCursorLock);
+	}
+}
 
-	document.addEventListener('mouseover', e => {
-	  if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
-		customCursor.classList.remove('cursor-base');
-		customCursor.classList.add('cursor-base--hover');
-		scaleGroup.style.transform = 'scale(1)';
-	  }
-	});
+function cursorToggle() {
+  customCursorEnabled = !customCursorEnabled;
+  customCursor.style.display = customCursorEnabled ? 'block' : 'none';
+  document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
+	if (customCursorEnabled) {
+		document.addEventListener('mousemove', handleMouseMove);
+	} else {
+		document.removeEventListener('mousemove', handleMouseMove)
+	}
+}
 
-	document.addEventListener('mouseout', e => {
-	  if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
-		customCursor.classList.remove('cursor-base--hover');
-		customCursor.classList.add('cursor-base');
-		scaleGroup.style.transform = 'scale(0.7)';
-	  }
-	});
-} else {
-	customCursor.style.display = 'none';
-	customCursorMode.addEventListener('change', () => {
-	  customCursorEnabled = !customCursorEnabled;
-	  customCursor.style.display = 'none';
-	});
+
+function cursorHoverStart(e) {
+  if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
+	customCursor.classList.remove('cursor-base');
+	customCursor.classList.add('cursor-base--hover');
+	scaleGroup.style.transform = 'scale(1)';
+  }
+}
+
+function cursorHoverStop(e) {
+  if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
+	customCursor.classList.remove('cursor-base--hover');
+	customCursor.classList.add('cursor-base');
+	scaleGroup.style.transform = 'scale(0.7)';
+  }
+}
+
+function customCursorLock() {
+  customCursorEnabled = !customCursorEnabled;
+  customCursor.style.display = 'none';
 }
 
 function handleMouseMove(e) {
@@ -64,3 +91,9 @@ function handleMouseMove(e) {
 	ticking = true;
   }
 }
+
+cursorTouchTester (hasTouch)
+
+window.addEventListener("resize", () => {
+	cursorTouchTester(hasTouch)
+});
