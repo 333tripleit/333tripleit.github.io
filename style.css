@@ -109,7 +109,30 @@ html { font-size: 16px; }
     padding-right: calc(1.3125rem + 0.625rem);
     margin-right: 0 !important;
 	}
+	
+	
+	
+	.auth {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		margin-left: 0 !important;
+		margin-right: 0.8em !important;
+	}
+	
+	.btn-login {
+		position: relative;
+		z-index: 2;
+		width: 3rem !important;
+		height: 3rem !important;
+		border-radius: 1.5rem;
+	}
+	
+	.auth-img {
+		position: relative;
+		z-index: 3;
+	}
 }
+
 /*
 @media (max-width: 1000px) {
 	.options-container {

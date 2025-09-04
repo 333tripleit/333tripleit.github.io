@@ -54,6 +54,21 @@ let hasTouch = navigator.maxTouchPoints > 0;
 
 let METInited = false;
 
+const authContainer = document.getElementById("auth-container");
+const loginButton = document.getElementById("login-button");
+const usernameDisplay = document.getElementById("username-display");
+const authImg = document.createElement("img");
+
+authImg.classList.add('auth-img');
+authImg.src = "/othersvg/account_white.svg";
+
+if (isMobile) {
+	loginButton.textContent = "";
+	authContainer.appendChild(authImg);
+} else {
+	loginButton.textContent = "Login via GitHub";
+	authImg.remove();
+};
 
 mobile.addEventListener('change', (e) => {
   const next = e.matches;
@@ -71,6 +86,9 @@ function onEnterMobile() {
   optmenuStyleSet(false);
 
   toggleMET(false);
+  
+  loginButton.textContent = "";
+  authContainer.appendChild(authImg);
 }
 
 function onExitMobile() {
@@ -83,6 +101,8 @@ function onExitMobile() {
   } else {
     toggleMET(false);
   }
+  loginButton.textContent = "Login via GitHub";
+  authImg.remove();
 }
 
 
@@ -294,8 +314,6 @@ btnSave.classList.add('disabled')
 
 //Блок авторизации
 //START
-const loginButton = document.getElementById("login-button");
-const usernameDisplay = document.getElementById("username-display");
 
 function checkAuth() {
   fetch("https://testproxyserveroauth.onrender.com/auth/me", {
