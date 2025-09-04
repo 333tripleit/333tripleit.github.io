@@ -57,17 +57,12 @@ let METInited = false;
 const authContainer = document.getElementById("auth-container");
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
-const authImg = document.createElement("img");
-
-authImg.classList.add('auth-img');
-authImg.src = "/othersvg/account_white.svg";
+const authImg = document.getElementById("auth-img");
 
 if (isMobile) {
 	loginButton.textContent = "";
-	authContainer.appendChild(authImg);
 } else {
 	loginButton.textContent = "Login via GitHub";
-	authImg.remove();
 };
 
 mobile.addEventListener('change', (e) => {
@@ -88,7 +83,6 @@ function onEnterMobile() {
   toggleMET(false);
   
   loginButton.textContent = "";
-  authContainer.appendChild(authImg);
 }
 
 function onExitMobile() {
@@ -102,7 +96,6 @@ function onExitMobile() {
     toggleMET(false);
   }
   loginButton.textContent = "Login via GitHub";
-  authImg.remove();
 }
 
 

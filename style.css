@@ -686,6 +686,13 @@ body::-webkit-scrollbar {
     margin-right: 2.4em;
 }
 
+.auth-img {
+	position: absolute;
+	pointer-events: none;
+	transform: translate(-0.5rem, -2rem);
+	z-index: 3;
+}
+
 .leaflet-control-attribution.leaflet-control {
     display: none;
 }
