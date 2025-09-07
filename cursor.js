@@ -1,7 +1,7 @@
 const customCursor = document.getElementById('custom-cursor');
 const scaleGroup = document.getElementById('scaleSup');
 const customCursorMode   = document.getElementById('toggle-cursor');
-const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button';
+const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button, .auth-img, .icon-item, .collected, .region';
 
 
 let customCursorEnabled = true;

@@ -649,7 +649,7 @@ body::-webkit-scrollbar {
     border-bottom-right-radius: 1rem;
     height: 4em;
     width: 22em;
-    position: absolute;
+    position: relative;
     z-index: 1;
 	user-select: none;
 }
@@ -659,11 +659,10 @@ body::-webkit-scrollbar {
     border-bottom-left-radius: 16px;
     height: 4em;
     width: 25em;
-    margin-left: calc(100vw - 25em);
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    position: absolute;
+    position: relative;
     z-index: 1;
 }
 
@@ -680,18 +679,33 @@ body::-webkit-scrollbar {
 }
 
 .auth {
-    margin-top: 1.15em;
-    margin-bottom: 1.15em;
-    margin-left: 2.4em;
+    display: flex;
     margin-right: 2.4em;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 12rem;
+    align-items: center;
 }
 
 .auth-img {
-	position: absolute;
-	pointer-events: none;
-	transform: translate(-0.5rem, -2rem);
-	z-index: 3;
+    width: 2.75rem;
+    height: 2.75rem;
+    z-index: 3;
+    border-style: solid;
+    border-color: #01a36f;
+    border-width: 0.125rem;
+    border-radius: 3.5rem;
+	transform-origin: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), border 0.6s cubic-bezier(0.4, 0, 0.2, 1), margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.auth-img:hover {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-color: #06c789;
+	transform: scale(1.15);
+}
+
 
 .leaflet-control-attribution.leaflet-control {
     display: none;
