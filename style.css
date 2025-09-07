@@ -692,20 +692,20 @@ body::-webkit-scrollbar {
     height: 2.75rem;
     z-index: 3;
     border-style: solid;
-    border-color: #01a36f;
-	background: #01a36f;
+    border-color: #0a9f8f;
+	background: #066b60;
     border-width: 0.125rem;
     border-radius: 3.5rem;
 	transform-origin: center;
 	transform: scale(0.9);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), border 0.6s cubic-bezier(0.4, 0, 0.2, 1), margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), border 0.6s cubic-bezier(0.4, 0, 0.2, 1), margin 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .auth-img:hover {
     width: 2.75rem;
     height: 2.75rem;
-    border-color: #06c789;
-	background: #06c789;
+    border-color: #14c3b0;
+	background: #0a9f8f;
 	transform: scale(1);
 }
 
